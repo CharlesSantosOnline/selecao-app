@@ -1,4 +1,4 @@
-package charles.santos.online.selecao_app
+package charles.santos.online.esportes_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 

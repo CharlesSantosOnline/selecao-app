@@ -1,5 +1,5 @@
-import 'package:selecao_app/class/routes_class.dart';
-import 'package:selecao_app/config/string_config.dart';
+import 'package:esportes_flutter/class/routes_class.dart';
+import 'package:esportes_flutter/config/string_config.dart';
 
 class MenuModel {
   final String texto;

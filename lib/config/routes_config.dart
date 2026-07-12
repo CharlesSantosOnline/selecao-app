@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
-import 'package:selecao_app/class/routes_class.dart';
-import 'package:selecao_app/page/definir_page.dart';
-import 'package:selecao_app/page/doar_Page.dart';
-import 'package:selecao_app/page/inicio_page.dart';
-import 'package:selecao_app/page/placar_page.dart';
-import 'package:selecao_app/page/selecionar_page.dart';
-import 'package:selecao_app/page/equipes_page.dart';
+import 'package:esportes_flutter/class/routes_class.dart';
+import 'package:esportes_flutter/page/definir_page.dart';
+import 'package:esportes_flutter/page/doar_Page.dart';
+import 'package:esportes_flutter/page/inicio_page.dart';
+import 'package:esportes_flutter/page/placar_page.dart';
+import 'package:esportes_flutter/page/selecionar_page.dart';
+import 'package:esportes_flutter/page/equipes_page.dart';
 
 final GoRouter routes = GoRouter(
   debugLogDiagnostics: true,

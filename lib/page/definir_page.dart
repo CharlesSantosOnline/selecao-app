@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:selecao_app/appbar/padrao_appbar.dart';
-import 'package:selecao_app/button/numero_button.dart';
-import 'package:selecao_app/button/primeiro_button.dart';
-import 'package:selecao_app/class/lista_class.dart';
-import 'package:selecao_app/config/string_config.dart';
-import 'package:selecao_app/config/value_notifier_config.dart';
-import 'package:selecao_app/dialog/simples_dialog.dart';
-import 'package:selecao_app/input/texto_input.dart';
-import 'package:selecao_app/model/definir_model.dart';
-import 'package:selecao_app/text/title_medium_text.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
+import 'package:esportes_flutter/appbar/padrao_appbar.dart';
+import 'package:esportes_flutter/button/numero_button.dart';
+import 'package:esportes_flutter/button/primeiro_button.dart';
+import 'package:esportes_flutter/class/lista_class.dart';
+import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/config/value_notifier_config.dart';
+import 'package:esportes_flutter/dialog/simples_dialog.dart';
+import 'package:esportes_flutter/input/texto_input.dart';
+import 'package:esportes_flutter/model/definir_model.dart';
+import 'package:esportes_flutter/text/title_medium_text.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
 
 class DefinirPage extends StatefulWidget {
   const DefinirPage({super.key});

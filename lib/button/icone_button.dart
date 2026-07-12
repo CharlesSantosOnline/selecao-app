@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selecao_app/theme/ui_borda.dart';
-import 'package:selecao_app/theme/ui_tamanho.dart';
+import 'package:esportes_flutter/theme/ui_borda.dart';
+import 'package:esportes_flutter/theme/ui_tamanho.dart';
 
 class IconeButton extends StatefulWidget {
   const IconeButton({

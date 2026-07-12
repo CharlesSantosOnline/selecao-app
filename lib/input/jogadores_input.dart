@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:selecao_app/button/primeiro_button.dart';
-import 'package:selecao_app/config/string_config.dart';
-import 'package:selecao_app/text/title_medium_text.dart';
-import 'package:selecao_app/theme/ui_borda.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
+import 'package:esportes_flutter/button/primeiro_button.dart';
+import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/text/title_medium_text.dart';
+import 'package:esportes_flutter/theme/ui_borda.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
 
 class JogadoresInput extends StatefulWidget {
   const JogadoresInput({

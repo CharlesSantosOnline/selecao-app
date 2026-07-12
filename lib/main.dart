@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:selecao_app/config/routes_config.dart';
-import 'package:selecao_app/theme/ui_tema.dart';
+import 'package:esportes_flutter/config/routes_config.dart';
+import 'package:esportes_flutter/theme/ui_tema.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

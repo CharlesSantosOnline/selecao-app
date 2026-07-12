@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:selecao_app/appbar/voltar_appbar.dart';
-import 'package:selecao_app/button/texto_button.dart';
-import 'package:selecao_app/config/string_config.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
-import 'package:selecao_app/theme/ui_tamanho.dart';
+import 'package:esportes_flutter/appbar/voltar_appbar.dart';
+import 'package:esportes_flutter/button/texto_button.dart';
+import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_tamanho.dart';
 
 class DoarPage extends StatefulWidget {
   const DoarPage({super.key});

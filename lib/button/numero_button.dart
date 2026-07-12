@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selecao_app/text/title_medium_text.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
+import 'package:esportes_flutter/text/title_medium_text.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
 
 class NumeroButton extends StatefulWidget {
   const NumeroButton({

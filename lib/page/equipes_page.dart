@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:selecao_app/appbar/padrao_appbar.dart';
-import 'package:selecao_app/button/texto_button.dart';
-import 'package:selecao_app/class/selecionar_class.dart';
-import 'package:selecao_app/config/string_config.dart';
-import 'package:selecao_app/dialog/simples_dialog.dart';
-import 'package:selecao_app/text/title_medium_text.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
+import 'package:esportes_flutter/appbar/padrao_appbar.dart';
+import 'package:esportes_flutter/button/texto_button.dart';
+import 'package:esportes_flutter/class/selecionar_class.dart';
+import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/dialog/simples_dialog.dart';
+import 'package:esportes_flutter/text/title_medium_text.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
 
 class EquipesPage extends StatefulWidget {
   const EquipesPage({super.key});

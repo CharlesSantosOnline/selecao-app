@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selecao_app/button/primeiro_button.dart';
-import 'package:selecao_app/text/title_medium_text.dart';
+import 'package:esportes_flutter/button/primeiro_button.dart';
+import 'package:esportes_flutter/text/title_medium_text.dart';
 
 class TextoButton extends StatefulWidget {
   const TextoButton({

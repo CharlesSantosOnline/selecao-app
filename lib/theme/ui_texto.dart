@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
 
 class UiTexto {
   static const TextStyle displayLarge = TextStyle(

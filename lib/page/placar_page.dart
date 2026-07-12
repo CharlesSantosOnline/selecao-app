@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:selecao_app/appbar/padrao_appbar.dart';
-import 'package:selecao_app/button/segundo_button.dart';
-import 'package:selecao_app/class/partida_class.dart';
-import 'package:selecao_app/class/routes_class.dart';
-import 'package:selecao_app/config/string_config.dart';
-import 'package:selecao_app/config/value_notifier_config.dart';
-import 'package:selecao_app/dialog/opcoes_dialog.dart';
-import 'package:selecao_app/dialog/simples_dialog.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
+import 'package:esportes_flutter/appbar/padrao_appbar.dart';
+import 'package:esportes_flutter/button/segundo_button.dart';
+import 'package:esportes_flutter/class/partida_class.dart';
+import 'package:esportes_flutter/class/routes_class.dart';
+import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/config/value_notifier_config.dart';
+import 'package:esportes_flutter/dialog/opcoes_dialog.dart';
+import 'package:esportes_flutter/dialog/simples_dialog.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
 
 class PlacarPage extends StatefulWidget {
   const PlacarPage({super.key});

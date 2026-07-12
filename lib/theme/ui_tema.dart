@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
-import 'package:selecao_app/theme/ui_texto.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_texto.dart';
 
 class UiTema {
   static definirTema() {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:selecao_app/theme/ui_duracao.dart';
+import 'package:esportes_flutter/theme/ui_duracao.dart';
 
 CustomTransitionPage transicaoPaginas<T>({
   required BuildContext context,

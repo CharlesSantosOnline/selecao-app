@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:selecao_app/config/string_config.dart';
-import 'package:selecao_app/model/definir_model.dart';
+import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/model/definir_model.dart';
 
 ValueNotifier<List<String>> currentJogadores = ValueNotifier<List<String>>([]);
 

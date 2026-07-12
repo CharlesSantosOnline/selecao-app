@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:selecao_app/config/string_config.dart';
-import 'package:selecao_app/model/menu_model.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
-import 'package:selecao_app/theme/ui_icone.dart';
+import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/model/menu_model.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_icone.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:selecao_app/widget/item_menu_widget.dart';
+import 'package:esportes_flutter/widget/item_menu_widget.dart';
 
 class InicioPage extends StatefulWidget {
   const InicioPage({super.key});

@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:selecao_app/config/value_notifier_config.dart';
+import 'package:esportes_flutter/config/value_notifier_config.dart';
 
 class SelecionarClass {
   int indice = 0;

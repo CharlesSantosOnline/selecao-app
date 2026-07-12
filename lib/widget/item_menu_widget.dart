@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:selecao_app/model/menu_model.dart';
-import 'package:selecao_app/theme/ui_cor.dart';
+import 'package:esportes_flutter/model/menu_model.dart';
+import 'package:esportes_flutter/theme/ui_cor.dart';
 
 class ItemMenuWidget extends StatefulWidget {
   const ItemMenuWidget({
