@@ -4,7 +4,7 @@ import 'package:esportes_flutter/theme/ui_color.dart';
 import 'package:esportes_flutter/theme/ui_text.dart';
 
 class UiTheme {
-  static applySystemTheme() {
+  static void applySystemTheme() {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,

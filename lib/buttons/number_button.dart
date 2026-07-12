@@ -27,7 +27,7 @@ class NumberButton extends StatefulWidget {
 }
 
 class _NumberButtonState extends State<NumberButton> {
-  int? selecionado;
+  int? selectedNumber;
 
   @override
   void initState() {
@@ -35,13 +35,13 @@ class _NumberButtonState extends State<NumberButton> {
     _selectNumber(widget._initialValue);
   }
 
-  _selectNumber(int number) {
-    setState(() => selecionado = number);
-    widget._callback(selecionado);
+  void _selectNumber(int number) {
+    setState(() => selectedNumber = number);
+    widget._callback(selectedNumber);
   }
 
   bool _isSelectedNumber(int number) {
-    return selecionado == number ? true : false;
+    return selectedNumber == number;
   }
 
   @override

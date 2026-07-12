@@ -10,7 +10,7 @@ void main() {
 }
 
 class SportsApp extends StatefulWidget {
-  const SportsApp({Key? key}) : super(key: key);
+  const SportsApp({super.key});
 
   @override
   State<SportsApp> createState() => _SportsAppState();
