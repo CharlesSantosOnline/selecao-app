@@ -41,8 +41,8 @@ class _DoarPageState extends State<DefinirPage> {
 
   void _definirPartida() {
     DefinirModel partida = DefinirModel(
-      mandante: _mandante ?? MANDANTE,
-      visitante: _visitante ?? VISITANTE,
+      mandante: _mandante,
+      visitante: _visitante,
       tempo: _tempo,
       periodo: _periodo,
     );

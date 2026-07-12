@@ -69,7 +69,7 @@ class _NumeroButtonState extends State<NumeroButton> {
                   onTap: () => _selecionarNumero(item),
                   child: Container(
                     color: _verificarNumero(item)
-                        ? widget._cor.withOpacity(0.7)
+                        ? widget._cor.withValues(alpha: 0.7)
                         : widget._cor,
                     width: sizeWidth,
                     height: sizeWidth,

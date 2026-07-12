@@ -218,15 +218,16 @@ class _PlacarPageState extends State<PlacarPage> {
     final sizeMetade = (width / 2) - 4;
     const espaco = 8.0;
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+
         if (iniciado || _pontoMandante > 0 || _pontoVisitante > 0) {
           _dialogVoltar();
         } else {
           Navigator.of(context).pop();
         }
-
-        return false;
       },
       child: Scaffold(
         appBar: AppBar(toolbarHeight: 0),

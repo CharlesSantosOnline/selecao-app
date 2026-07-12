@@ -18,7 +18,7 @@ class UiTema {
 
   static ThemeData tema = ThemeData(
     appBarTheme: const AppBarTheme(
-      color: UiCor.appbar,
+      backgroundColor: UiCor.appbar,
       elevation: 0,
       iconTheme: IconThemeData(color: UiCor.principal),
       titleSpacing: 0,
@@ -32,7 +32,7 @@ class UiTema {
       displayLarge: UiTexto.displayLarge,
       titleLarge: UiTexto.titleLarge,
     ),
-    dialogTheme: const DialogTheme(
+    dialogTheme: const DialogThemeData(
       shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.zero)),
       actionsPadding: EdgeInsets.all(16),

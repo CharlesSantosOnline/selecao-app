@@ -51,8 +51,8 @@ class _ItemMenuWidgetState extends State<PrimeiroButton> {
             width: widget._size ?? size,
             height: widget._size ?? size,
             color: isPressed
-                ? widget._cor?.withOpacity(0.7) ??
-                    UiCor.principal.withOpacity(0.7)
+                ? widget._cor?.withValues(alpha: 0.7) ??
+                    UiCor.principal.withValues(alpha: 0.7)
                 : widget._cor ?? UiCor.principal,
             child: Center(
               child: Icon(
