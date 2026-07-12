@@ -1,4 +1,4 @@
-class UiTamanho {
-  static const double icone = 56;
-  static const double botaoDialog = 56;
+class UiSize {
+  static const double icon = 56;
+  static const double dialogButton = 56;
 }

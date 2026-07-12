@@ -1,27 +1,27 @@
-import 'package:esportes_flutter/class/routes_class.dart';
-import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/services/routes_service.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
 
-class MenuModel {
-  final String texto;
-  final String rota;
+class MenuItem {
+  final String text;
+  final String route;
 
-  MenuModel({
-    required this.texto,
-    required this.rota,
+  MenuItem({
+    required this.text,
+    required this.route,
   });
 
-  static List<MenuModel> listaMenu = [
-    MenuModel(
-      rota: RoutesEnum.SELECIONAR.value,
-      texto: SELECIONAR,
+  static List<MenuItem> menuItems = [
+    MenuItem(
+      route: AppRoute.SELECT.value,
+      text: SELECT,
     ),
-    MenuModel(
-      rota: RoutesEnum.PLACAR.value,
-      texto: PLACAR,
+    MenuItem(
+      route: AppRoute.SCOREBOARD.value,
+      text: SCOREBOARD,
     ),
-    MenuModel(
-      rota: RoutesEnum.DOAR.value,
-      texto: DOAR,
+    MenuItem(
+      route: AppRoute.DONATE.value,
+      text: DONATE,
     )
   ];
 }

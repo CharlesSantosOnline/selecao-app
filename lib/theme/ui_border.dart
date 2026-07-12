@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class UiBorda {
-  static const double circulo = 400;
-  static const double quadrada = 0;
+class UiBorder {
+  static const double circle = 400;
+  static const double square = 0;
 
-  static OutlineInputBorder inputBorda = const OutlineInputBorder(
+  static OutlineInputBorder inputBorder = const OutlineInputBorder(
     borderSide: BorderSide.none,
     borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(UiBorda.quadrada),
-      topRight: Radius.circular(UiBorda.quadrada),
-      bottomRight: Radius.circular(UiBorda.quadrada),
-      bottomLeft: Radius.circular(UiBorda.quadrada),
+      topLeft: Radius.circular(UiBorder.square),
+      topRight: Radius.circular(UiBorder.square),
+      bottomRight: Radius.circular(UiBorder.square),
+      bottomLeft: Radius.circular(UiBorder.square),
     ),
   );
 }

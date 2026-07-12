@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 class TitleMediumText extends StatelessWidget {
   const TitleMediumText({
     super.key,
-    required Color cor,
-    required String texto,
-  })  : _cor = cor,
-        _texto = texto;
+    required Color color,
+    required String text,
+  })  : _color = color,
+        _text = text;
 
-  final Color _cor;
-  final String _texto;
+  final Color _color;
+  final String _text;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      _texto,
+      _text,
       style: TextStyle(
-        color: _cor,
+        color: _color,
         fontSize: 24,
         fontWeight: FontWeight.normal,
       ),

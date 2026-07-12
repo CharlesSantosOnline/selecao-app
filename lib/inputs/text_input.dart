@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/theme/ui_borda.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_border.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class TextoInput extends StatefulWidget {
-  const TextoInput({
+class AppTextInput extends StatefulWidget {
+  const AppTextInput({
     super.key,
     required Function callback,
     TextEditingController? controller,
-    required Color cor,
+    required Color color,
     required String hint,
   })  : _callback = callback,
         _controller = controller,
-        _cor = cor,
+        _color = color,
         _hint = hint;
 
   final Function _callback;
   final TextEditingController? _controller;
-  final Color _cor;
+  final Color _color;
   final String _hint;
 
   @override
-  State<TextoInput> createState() => _JogadoresInputState();
+  State<AppTextInput> createState() => _PlayersInputState();
 }
 
-class _JogadoresInputState extends State<TextoInput> {
+class _PlayersInputState extends State<AppTextInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: widget._cor,
+      color: widget._color,
       child: TextFormField(
         autofocus: false,
         controller: widget._controller,
@@ -36,16 +36,16 @@ class _JogadoresInputState extends State<TextoInput> {
         maxLines: 1,
         textAlignVertical: TextAlignVertical.top,
         style: const TextStyle(
-          color: UiCor.hint,
+          color: UiColor.hint,
           fontSize: 16,
           fontWeight: FontWeight.normal,
         ),
         decoration: InputDecoration(
           hintText: widget._hint,
           filled: true,
-          fillColor: widget._cor,
+          fillColor: widget._color,
           hintStyle: const TextStyle(
-            color: UiCor.hint,
+            color: UiColor.hint,
             fontSize: 16,
             fontWeight: FontWeight.normal,
           ),
@@ -53,9 +53,9 @@ class _JogadoresInputState extends State<TextoInput> {
             horizontal: 16,
             vertical: 16,
           ),
-          border: UiBorda.inputBorda,
-          enabledBorder: UiBorda.inputBorda,
-          focusedBorder: UiBorda.inputBorda,
+          border: UiBorder.inputBorder,
+          enabledBorder: UiBorder.inputBorder,
+          focusedBorder: UiBorder.inputBorder,
         ),
       ),
     );

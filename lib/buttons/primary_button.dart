@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class PrimeiroButton extends StatefulWidget {
-  const PrimeiroButton({
+class PrimaryButton extends StatefulWidget {
+  const PrimaryButton({
     super.key,
     required Function callback,
-    Color? cor,
+    Color? color,
     bool? full,
-    IconData? icone,
-    IconData? iconeAtivo,
-    Color? iconeCor,
+    IconData? icon,
+    IconData? activeIcon,
+    Color? iconColor,
     double? size,
   })  : _callback = callback,
-        _cor = cor,
+        _color = color,
         _full = full,
-        _icone = icone,
-        _iconeAtivo = iconeAtivo,
-        _iconeCor = iconeCor,
+        _icon = icon,
+        _activeIcon = activeIcon,
+        _iconColor = iconColor,
         _size = size;
 
   final Function _callback;
-  final Color? _cor;
+  final Color? _color;
   final bool? _full;
-  final IconData? _icone;
-  final IconData? _iconeAtivo;
-  final Color? _iconeCor;
+  final IconData? _icon;
+  final IconData? _activeIcon;
+  final Color? _iconColor;
   final double? _size;
 
   @override
-  State<PrimeiroButton> createState() => _ItemMenuWidgetState();
+  State<PrimaryButton> createState() => _MenuItemWidgetState();
 }
 
-class _ItemMenuWidgetState extends State<PrimeiroButton> {
+class _MenuItemWidgetState extends State<PrimaryButton> {
   bool isPressed = false;
 
   @override
@@ -51,16 +51,16 @@ class _ItemMenuWidgetState extends State<PrimeiroButton> {
             width: widget._size ?? size,
             height: widget._size ?? size,
             color: isPressed
-                ? widget._cor?.withValues(alpha: 0.7) ??
-                    UiCor.principal.withValues(alpha: 0.7)
-                : widget._cor ?? UiCor.principal,
+                ? widget._color?.withValues(alpha: 0.7) ??
+                    UiColor.primary.withValues(alpha: 0.7)
+                : widget._color ?? UiColor.primary,
             child: Center(
               child: Icon(
                 isPressed
-                    ? widget._iconeAtivo ?? Icons.arrow_circle_right
-                    : widget._icone ?? Icons.arrow_circle_right_outlined,
+                    ? widget._activeIcon ?? Icons.arrow_circle_right
+                    : widget._icon ?? Icons.arrow_circle_right_outlined,
                 size: (widget._size ?? size) * 0.7,
-                color: widget._iconeCor ?? const Color(0xFF0C2D54),
+                color: widget._iconColor ?? const Color(0xFF0C2D54),
               ),
             ),
           ),

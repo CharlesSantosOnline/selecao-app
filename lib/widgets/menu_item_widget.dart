@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:esportes_flutter/model/menu_model.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/models/menu_item.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class ItemMenuWidget extends StatefulWidget {
-  const ItemMenuWidget({
+class MenuItemWidget extends StatefulWidget {
+  const MenuItemWidget({
     super.key,
-    required MenuModel item,
-  }) : _item = item;
+    required MenuItem item,
+  }) : _menuItem = item;
 
-  final MenuModel _item;
+  final MenuItem _menuItem;
 
   @override
-  State<ItemMenuWidget> createState() => _ItemMenuWidgetState();
+  State<MenuItemWidget> createState() => _MenuItemWidgetState();
 }
 
-class _ItemMenuWidgetState extends State<ItemMenuWidget> {
+class _MenuItemWidgetState extends State<MenuItemWidget> {
   bool isPressed = false;
 
   @override
@@ -24,13 +24,13 @@ class _ItemMenuWidgetState extends State<ItemMenuWidget> {
       onTapDown: (_) => setState(() => isPressed = true),
       onTapUp: (_) => setState(() => isPressed = false),
       onTapCancel: () => setState(() => isPressed = false),
-      onTap: () => context.push(widget._item.rota),
+      onTap: () => context.push(widget._menuItem.route),
       child: Row(
         children: [
           Text(
-            widget._item.texto,
+            widget._menuItem.text,
             style: const TextStyle(
-              color: UiCor.principal,
+              color: UiColor.primary,
               fontSize: 40,
               fontWeight: FontWeight.bold,
             ),
@@ -41,7 +41,7 @@ class _ItemMenuWidgetState extends State<ItemMenuWidget> {
                 ? Icons.arrow_circle_right
                 : Icons.arrow_circle_right_outlined,
             size: 48,
-            color: UiCor.principal,
+            color: UiColor.primary,
           ),
         ],
       ),

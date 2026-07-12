@@ -1,207 +1,207 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:esportes_flutter/appbar/padrao_appbar.dart';
-import 'package:esportes_flutter/button/segundo_button.dart';
-import 'package:esportes_flutter/class/partida_class.dart';
-import 'package:esportes_flutter/class/routes_class.dart';
-import 'package:esportes_flutter/config/string_config.dart';
-import 'package:esportes_flutter/config/value_notifier_config.dart';
-import 'package:esportes_flutter/dialog/opcoes_dialog.dart';
-import 'package:esportes_flutter/dialog/simples_dialog.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/app_bar/standard_app_bar.dart';
+import 'package:esportes_flutter/buttons/secondary_button.dart';
+import 'package:esportes_flutter/services/match_service.dart';
+import 'package:esportes_flutter/services/routes_service.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
+import 'package:esportes_flutter/config/app_state.dart';
+import 'package:esportes_flutter/dialogs/options_dialog.dart';
+import 'package:esportes_flutter/dialogs/simple_dialog.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class PlacarPage extends StatefulWidget {
-  const PlacarPage({super.key});
+class ScoreboardPage extends StatefulWidget {
+  const ScoreboardPage({super.key});
 
   @override
-  State<PlacarPage> createState() => _PlacarPageState();
+  State<ScoreboardPage> createState() => _ScoreboardPageState();
 }
 
-class _PlacarPageState extends State<PlacarPage> {
-  final PartidaClass _partidaClass = PartidaClass();
+class _ScoreboardPageState extends State<ScoreboardPage> {
+  final MatchService _matchService = MatchService();
 
-  int _periodo = 1;
-  int horas = 0, minutos = 0, segundos = 0, milessimos = 0;
+  int _period = 1;
+  int hours = 0, minutes = 0, seconds = 0, milliseconds = 0;
 
-  int _pontoMandante = 0, _pontoVisitante = 0;
+  int _homeScore = 0, _awayScore = 0;
 
-  String _tempo = TempoEnum.PARAR.value;
+  String _timerState = TimerState.STOP.value;
 
-  bool iniciado = false;
+  bool isRunning = false;
 
   Timer timer = Timer.periodic(const Duration(milliseconds: 0), (_) {});
 
   @override
   void initState() {
     super.initState();
-    _alterarPeriodo(currentDefinir.value.periodo);
+    _changePeriod(currentMatchSettings.value.period);
   }
 
-  Future<void> _dialogInfo() async {
+  Future<void> _showInfoDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return const SimplesDialog(
-          titulo: COMO_USAR,
-          texto: PLACAR_INSTRUCAO,
+        return const SimpleInfoDialog(
+          title: HOW_TO_USE,
+          text: SCOREBOARD_INSTRUCTIONS,
         );
       },
     );
   }
 
-  Future<void> _dialogVoltar() async {
+  Future<void> _showExitDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return OpcoesDialog(
-          callback: (value) => _opcoesVoltar(value),
-          titulo: ATENCAO,
-          texto: VOLTAR_FINALIZAR,
+        return OptionsDialog(
+          callback: (value) => _handleExitOption(value),
+          title: ATTENTION,
+          text: EXIT_MATCH_WARNING,
         );
       },
     );
   }
 
-  Future<void> _dialogReiniciar() async {
+  Future<void> _showResetDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return OpcoesDialog(
-          callback: (value) => _opcoesReiniciar(value),
-          titulo: ATENCAO,
-          texto: REINICIAR_DESCRICAO,
+        return OptionsDialog(
+          callback: (value) => _handleResetOption(value),
+          title: ATTENTION,
+          text: RESET_DESCRIPTION,
         );
       },
     );
   }
 
-  void _opcoesReiniciar(bool isReiniciar) {
+  void _handleResetOption(bool isReiniciar) {
     if (!isReiniciar) {
       Navigator.of(context).pop();
     } else {
       Navigator.of(context).pop();
-      pararCronometro();
-      currentDefinir.value.mandante = MANDANTE;
-      currentDefinir.value.visitante = VISITANTE;
-      currentDefinir.value.periodo = 1;
-      currentDefinir.value.tempo = 25;
+      stopTimer();
+      currentMatchSettings.value.homeTeam = HOME_TEAM;
+      currentMatchSettings.value.awayTeam = AWAY_TEAM;
+      currentMatchSettings.value.period = 1;
+      currentMatchSettings.value.duration = 25;
       setState(() {
-        _pontoMandante = 0;
-        _pontoVisitante = 0;
-        _periodo = 1;
+        _homeScore = 0;
+        _awayScore = 0;
+        _period = 1;
       });
     }
   }
 
-  void _opcoesVoltar(bool isVoltar) {
-    if (isVoltar) {
+  void _handleExitOption(bool shouldExit) {
+    if (shouldExit) {
       Navigator.of(context).pop();
-      pararCronometro();
+      stopTimer();
       Navigator.of(context).pop();
     } else {
       Navigator.of(context).pop();
     }
   }
 
-  void _alterarPeriodo(int periodo) {
-    final int value = _partidaClass.alterarPeriodo(periodo);
-    setState(() => _periodo = value);
+  void _changePeriod(int period) {
+    final int value = _matchService.changePeriod(period);
+    setState(() => _period = value);
   }
 
-  void _alterarTempo(String value) {
-    setState(() => _tempo = value);
+  void _changeTimerState(String value) {
+    setState(() => _timerState = value);
   }
 
-  bool _desabilitarIniciar() {
-    return _tempo == TempoEnum.INICIAR.value ? true : false;
+  bool _isStartDisabled() {
+    return _timerState == TimerState.START.value ? true : false;
   }
 
-  bool _desabilitarPausar() {
-    return _tempo == TempoEnum.INICIAR.value ? false : true;
+  bool _isPauseDisabled() {
+    return _timerState == TimerState.START.value ? false : true;
   }
 
-  bool _desabilitarParar() {
-    return _tempo == TempoEnum.PAUSAR.value ? false : true;
+  bool _isStopDisabled() {
+    return _timerState == TimerState.PAUSE.value ? false : true;
   }
 
-  bool _desabilitarReiniciar() {
-    if (_pontoMandante > 0 || _pontoVisitante > 0) return false;
-    if (_tempo != TempoEnum.PARAR.value) return false;
+  bool _isResetDisabled() {
+    if (_homeScore > 0 || _awayScore > 0) return false;
+    if (_timerState != TimerState.STOP.value) return false;
     return true;
   }
 
-  void iniciarCronometro() {
-    if (iniciado) return;
+  void startTimer() {
+    if (isRunning) return;
 
-    iniciado = true;
+    isRunning = true;
     timer = Timer.periodic(const Duration(milliseconds: 10), (_) {
       setState(() {
-        milessimos++;
-        if (milessimos >= 100) {
-          milessimos = 0;
-          segundos++;
+        milliseconds++;
+        if (milliseconds >= 100) {
+          milliseconds = 0;
+          seconds++;
         }
-        if (segundos >= 60) {
-          segundos = 0;
-          minutos++;
+        if (seconds >= 60) {
+          seconds = 0;
+          minutes++;
         }
-        if (minutos >= 60) {
-          minutos = 0;
-          horas++;
+        if (minutes >= 60) {
+          minutes = 0;
+          hours++;
         }
       });
     });
 
-    _alterarTempo(TempoEnum.INICIAR.value);
+    _changeTimerState(TimerState.START.value);
   }
 
-  void pausarCronometro() {
+  void pauseTimer() {
     timer.cancel();
-    setState(() => iniciado = false);
-    _alterarTempo(TempoEnum.PAUSAR.value);
+    setState(() => isRunning = false);
+    _changeTimerState(TimerState.PAUSE.value);
   }
 
-  void pararCronometro() {
+  void stopTimer() {
     timer.cancel();
     setState(() {
-      horas = 0;
-      minutos = 0;
-      segundos = 0;
-      milessimos = 0;
-      iniciado = false;
+      hours = 0;
+      minutes = 0;
+      seconds = 0;
+      milliseconds = 0;
+      isRunning = false;
     });
-    _alterarTempo(TempoEnum.PARAR.value);
+    _changeTimerState(TimerState.STOP.value);
   }
 
-  String _formatDoisDigitos(int value) {
+  String _formatTwoDigits(int value) {
     return value.toString().padLeft(2, '0');
   }
 
-  String _formatTresDigitos(int value) {
+  String _formatThreeDigits(int value) {
     return value.toString().padLeft(3, '0');
   }
 
-  void _aumentarPontoMandante() {
-    setState(() => _pontoMandante++);
+  void _increaseHomeScore() {
+    setState(() => _homeScore++);
   }
 
-  void _aumentarPontoVisitante() {
-    setState(() => _pontoVisitante++);
+  void _increaseAwayScore() {
+    setState(() => _awayScore++);
   }
 
-  void _diminuirPontoMandante() {
-    if (_pontoMandante > 0) {
-      setState(() => _pontoMandante--);
+  void _decreaseHomeScore() {
+    if (_homeScore > 0) {
+      setState(() => _homeScore--);
     }
   }
 
-  void _diminuirPontoVisitante() {
-    if (_pontoVisitante > 0) {
-      setState(() => _pontoVisitante--);
+  void _decreaseAwayScore() {
+    if (_awayScore > 0) {
+      setState(() => _awayScore--);
     }
   }
 
@@ -214,17 +214,17 @@ class _PlacarPageState extends State<PlacarPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
-    final sizeIcone = width / 6;
-    final sizeMetade = (width / 2) - 4;
-    const espaco = 8.0;
+    final iconSize = width / 6;
+    final halfWidth = (width / 2) - 4;
+    const spacing = 8.0;
 
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) return;
 
-        if (iniciado || _pontoMandante > 0 || _pontoVisitante > 0) {
-          _dialogVoltar();
+        if (isRunning || _homeScore > 0 || _awayScore > 0) {
+          _showExitDialog();
         } else {
           Navigator.of(context).pop();
         }
@@ -234,22 +234,22 @@ class _PlacarPageState extends State<PlacarPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              PadraoAppbar(
-                callback: () => _dialogInfo(),
-                texto: PLACAR_CRONOMETRO,
+              StandardAppBar(
+                callback: () => _showInfoDialog(),
+                text: SCOREBOARD_AND_TIMER,
               ),
               const SizedBox(height: 16),
               Row(
                 children: [
                   Container(
-                    width: sizeMetade,
-                    color: UiCor.display,
+                    width: halfWidth,
+                    color: UiColor.display,
                     padding: const EdgeInsets.all(16),
                     child: Center(
                       child: Text(
-                        '${_periodo.toString()}° $TEMPO',
+                        '${_period.toString()}° $TIME',
                         style: const TextStyle(
-                          color: UiCor.periodo,
+                          color: UiColor.period,
                           fontSize: 24,
                           fontWeight: FontWeight.normal,
                           fontFamily: 'display',
@@ -257,30 +257,30 @@ class _PlacarPageState extends State<PlacarPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: espaco),
+                  const SizedBox(width: spacing),
                   Container(
-                    width: sizeMetade,
-                    color: UiCor.display,
+                    width: halfWidth,
+                    color: UiColor.display,
                     padding: const EdgeInsets.all(16),
                     child: Center(
-                      child: cronometro(),
+                      child: timerDisplay(),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: espaco),
+              const SizedBox(height: spacing),
               Row(
                 children: [
                   Container(
-                    width: sizeMetade,
-                    color: UiCor.display,
+                    width: halfWidth,
+                    color: UiColor.display,
                     padding: const EdgeInsets.all(16),
                     child: Center(
                       child: Text(
-                        currentDefinir.value.mandante,
+                        currentMatchSettings.value.homeTeam,
                         style: const TextStyle(
                           overflow: TextOverflow.ellipsis,
-                          color: UiCor.mandante,
+                          color: UiColor.homeTeam,
                           fontSize: 24,
                           fontWeight: FontWeight.normal,
                           fontFamily: 'display',
@@ -288,17 +288,17 @@ class _PlacarPageState extends State<PlacarPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: espaco),
+                  const SizedBox(width: spacing),
                   Container(
-                    width: sizeMetade,
-                    color: UiCor.display,
+                    width: halfWidth,
+                    color: UiColor.display,
                     padding: const EdgeInsets.all(16),
                     child: Center(
                       child: Text(
-                        currentDefinir.value.visitante,
+                        currentMatchSettings.value.awayTeam,
                         style: const TextStyle(
                           overflow: TextOverflow.ellipsis,
-                          color: UiCor.visitante,
+                          color: UiColor.awayTeam,
                           fontSize: 24,
                           fontWeight: FontWeight.normal,
                           fontFamily: 'display',
@@ -308,18 +308,18 @@ class _PlacarPageState extends State<PlacarPage> {
                   )
                 ],
               ),
-              const SizedBox(height: espaco),
+              const SizedBox(height: spacing),
               Row(
                 children: [
                   Container(
-                    width: sizeMetade,
-                    color: UiCor.display,
+                    width: halfWidth,
+                    color: UiColor.display,
                     padding: const EdgeInsets.all(16),
                     child: Center(
                       child: Text(
-                        _pontoMandante.toString(),
+                        _homeScore.toString(),
                         style: TextStyle(
-                          color: UiCor.mandante,
+                          color: UiColor.homeTeam,
                           fontSize: width * 0.2,
                           fontFamily: 'display',
                           fontWeight: FontWeight.normal,
@@ -327,16 +327,16 @@ class _PlacarPageState extends State<PlacarPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: espaco),
+                  const SizedBox(width: spacing),
                   Container(
-                    width: sizeMetade,
-                    color: UiCor.display,
+                    width: halfWidth,
+                    color: UiColor.display,
                     padding: const EdgeInsets.all(16),
                     child: Center(
                       child: Text(
-                        _pontoVisitante.toString(),
+                        _awayScore.toString(),
                         style: TextStyle(
-                          color: UiCor.visitante,
+                          color: UiColor.awayTeam,
                           fontSize: width * 0.2,
                           fontWeight: FontWeight.normal,
                           fontFamily: 'display',
@@ -346,79 +346,79 @@ class _PlacarPageState extends State<PlacarPage> {
                   )
                 ],
               ),
-              const SizedBox(height: espaco),
+              const SizedBox(height: spacing),
               Row(
                 children: [
-                  SegundoButton(
-                    callback: () => _alterarPeriodo(_periodo),
-                    cor: UiCor.periodo,
-                    icone: Icons.timer,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => _changePeriod(_period),
+                    color: UiColor.period,
+                    icon: Icons.timer,
+                    size: iconSize,
                   ),
-                  SegundoButton(
-                    callback: () => iniciarCronometro(),
-                    cor: UiCor.tempo,
-                    desabilitado: _desabilitarIniciar(),
-                    icone: Icons.play_arrow,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => startTimer(),
+                    color: UiColor.duration,
+                    disabled: _isStartDisabled(),
+                    icon: Icons.play_arrow,
+                    size: iconSize,
                   ),
-                  SegundoButton(
-                    callback: () => pausarCronometro(),
-                    cor: UiCor.tempo,
-                    desabilitado: _desabilitarPausar(),
-                    icone: Icons.pause,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => pauseTimer(),
+                    color: UiColor.duration,
+                    disabled: _isPauseDisabled(),
+                    icon: Icons.pause,
+                    size: iconSize,
                   ),
-                  SegundoButton(
-                    callback: () => pararCronometro(),
-                    cor: UiCor.tempo,
-                    desabilitado: _desabilitarParar(),
-                    icone: Icons.stop,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => stopTimer(),
+                    color: UiColor.duration,
+                    disabled: _isStopDisabled(),
+                    icon: Icons.stop,
+                    size: iconSize,
                   ),
-                  SegundoButton(
-                    callback: () => _dialogReiniciar(),
-                    cor: UiCor.linha,
-                    desabilitado: _desabilitarReiniciar(),
-                    icone: Icons.restart_alt,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => _showResetDialog(),
+                    color: UiColor.line,
+                    disabled: _isResetDisabled(),
+                    icon: Icons.restart_alt,
+                    size: iconSize,
                   ),
-                  SegundoButton(
-                    callback: () => context.push(RoutesEnum.DEFINIR.value),
-                    cor: const Color(0xFFFFFFFF),
-                    icone: Icons.settings,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => context.push(AppRoute.MATCH_SETTINGS.value),
+                    color: const Color(0xFFFFFFFF),
+                    icon: Icons.settings,
+                    size: iconSize,
                   ),
                 ],
               ),
-              const SizedBox(height: espaco),
+              const SizedBox(height: spacing),
               Row(
                 children: [
-                  SegundoButton(
-                    callback: () => _aumentarPontoMandante(),
-                    cor: UiCor.mandante,
-                    duplo: true,
-                    icone: Icons.plus_one,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => _increaseHomeScore(),
+                    color: UiColor.homeTeam,
+                    doubleWidth: true,
+                    icon: Icons.plus_one,
+                    size: iconSize,
                   ),
-                  SegundoButton(
-                    callback: () => _diminuirPontoMandante(),
-                    cor: UiCor.mandante,
-                    icone: Icons.remove,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => _decreaseHomeScore(),
+                    color: UiColor.homeTeam,
+                    icon: Icons.remove,
+                    size: iconSize,
                   ),
-                  SegundoButton(
-                    callback: () => _diminuirPontoVisitante(),
-                    cor: UiCor.visitante,
-                    icone: Icons.remove,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => _decreaseAwayScore(),
+                    color: UiColor.awayTeam,
+                    icon: Icons.remove,
+                    size: iconSize,
                   ),
-                  SegundoButton(
-                    callback: () => _aumentarPontoVisitante(),
-                    cor: UiCor.visitante,
-                    duplo: true,
-                    icone: Icons.plus_one,
-                    size: sizeIcone,
+                  SecondaryButton(
+                    callback: () => _increaseAwayScore(),
+                    color: UiColor.awayTeam,
+                    doubleWidth: true,
+                    icon: Icons.plus_one,
+                    size: iconSize,
                   ),
                 ],
               ),
@@ -429,11 +429,11 @@ class _PlacarPageState extends State<PlacarPage> {
     );
   }
 
-  Widget cronometro() {
+  Widget timerDisplay() {
     return Text(
-      "${_formatDoisDigitos(horas)}:${_formatDoisDigitos(minutos)}:${_formatDoisDigitos(segundos)}.${_formatTresDigitos(milessimos)}",
+      "${_formatTwoDigits(hours)}:${_formatTwoDigits(minutes)}:${_formatTwoDigits(seconds)}.${_formatThreeDigits(milliseconds)}",
       style: const TextStyle(
-        color: UiCor.tempo,
+        color: UiColor.duration,
         fontSize: 24,
         fontWeight: FontWeight.normal,
         fontFamily: 'display',

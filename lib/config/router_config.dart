@@ -1,62 +1,62 @@
 import 'package:go_router/go_router.dart';
-import 'package:esportes_flutter/class/routes_class.dart';
-import 'package:esportes_flutter/page/definir_page.dart';
-import 'package:esportes_flutter/page/doar_Page.dart';
-import 'package:esportes_flutter/page/inicio_page.dart';
-import 'package:esportes_flutter/page/placar_page.dart';
-import 'package:esportes_flutter/page/selecionar_page.dart';
-import 'package:esportes_flutter/page/equipes_page.dart';
+import 'package:esportes_flutter/services/routes_service.dart';
+import 'package:esportes_flutter/pages/match_settings_page.dart';
+import 'package:esportes_flutter/pages/donation_page.dart';
+import 'package:esportes_flutter/pages/home_page.dart';
+import 'package:esportes_flutter/pages/scoreboard_page.dart';
+import 'package:esportes_flutter/pages/team_selection_page.dart';
+import 'package:esportes_flutter/pages/teams_page.dart';
 
 final GoRouter routes = GoRouter(
   debugLogDiagnostics: true,
-  initialLocation: RoutesEnum.INICIO.value,
+  initialLocation: AppRoute.HOME.value,
   routes: [
     GoRoute(
-      path: RoutesEnum.DEFINIR.value,
+      path: AppRoute.MATCH_SETTINGS.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: const DefinirPage(),
+        child: const MatchSettingsPage(),
       ),
     ),
     GoRoute(
-      path: RoutesEnum.DOAR.value,
+      path: AppRoute.DONATE.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: const DoarPage(),
+        child: const DonationPage(),
       ),
     ),
     GoRoute(
-      path: RoutesEnum.INICIO.value,
+      path: AppRoute.HOME.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: const InicioPage(),
+        child: const HomePage(),
       ),
     ),
     GoRoute(
-      path: RoutesEnum.PLACAR.value,
+      path: AppRoute.SCOREBOARD.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: const PlacarPage(),
+        child: const ScoreboardPage(),
       ),
     ),
     GoRoute(
-      path: RoutesEnum.SELECIONAR.value,
+      path: AppRoute.SELECT.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: const SelecionarPage(),
+        child: const TeamSelectionPage(),
       ),
     ),
     GoRoute(
-      path: RoutesEnum.EQUIPES.value,
+      path: AppRoute.TEAMS.value,
       pageBuilder: (context, state) => transicaoPaginas(
         context: context,
         state: state,
-        child: const EquipesPage(),
+        child: const TeamsPage(),
       ),
     ),
   ],

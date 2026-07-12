@@ -1,43 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/appbar/padrao_appbar.dart';
-import 'package:esportes_flutter/button/texto_button.dart';
-import 'package:esportes_flutter/class/selecionar_class.dart';
-import 'package:esportes_flutter/config/string_config.dart';
-import 'package:esportes_flutter/dialog/simples_dialog.dart';
+import 'package:esportes_flutter/app_bar/standard_app_bar.dart';
+import 'package:esportes_flutter/buttons/text_button.dart';
+import 'package:esportes_flutter/services/team_selection_service.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
+import 'package:esportes_flutter/dialogs/simple_dialog.dart';
 import 'package:esportes_flutter/text/title_medium_text.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class EquipesPage extends StatefulWidget {
-  const EquipesPage({super.key});
+class TeamsPage extends StatefulWidget {
+  const TeamsPage({super.key});
 
   @override
-  State<EquipesPage> createState() => _EquipesPageState();
+  State<TeamsPage> createState() => _TeamsPageState();
 }
 
-class _EquipesPageState extends State<EquipesPage> {
-  final SelecionarClass _selecionarClass = SelecionarClass();
+class _TeamsPageState extends State<TeamsPage> {
+  final TeamSelectionService _teamSelectionService = TeamSelectionService();
 
-  List<List<String>> _equipes = [];
+  List<List<String>> _teams = [];
   int index = 0;
 
   @override
   void initState() {
-    _separarEquipes();
+    _splitTeams();
     super.initState();
   }
 
-  void _separarEquipes() {
-    setState(() => _equipes = _selecionarClass.separarEquipes());
+  void _splitTeams() {
+    setState(() => _teams = _teamSelectionService.splitTeams());
   }
 
-  Future<void> _showAlertDialog() async {
+  Future<void> _showTeamsDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return const SimplesDialog(
-          titulo: COMO_USAR,
-          texto: EQUIPES_INSTRUCAO,
+        return const SimpleInfoDialog(
+          title: HOW_TO_USE,
+          text: TEAMS_INSTRUCTIONS,
         );
       },
     );
@@ -51,30 +51,30 @@ class _EquipesPageState extends State<EquipesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PadraoAppbar(
-              callback: () => _showAlertDialog(),
-              texto: EQUIPES_SELECIONADA,
+            StandardAppBar(
+              callback: () => _showTeamsDialog(),
+              text: SELECTED_TEAMS,
             ),
             const Padding(
               padding: EdgeInsets.all(16),
               child: TitleMediumText(
-                cor: UiCor.principal,
-                texto: EQUIPES_TITULO,
+                color: UiColor.primary,
+                text: GENERATED_TEAMS,
               ),
             ),
             Wrap(
               children: [
-                for (var item in _equipes)
+                for (var item in _teams)
                   Container(
                     width: MediaQuery.sizeOf(context).width * 0.5,
-                    color: _selecionarClass.definirCor(),
+                    color: _teamSelectionService.selectColor(),
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (var nome in item)
+                        for (var name in item)
                           Text(
-                            nome.toUpperCase(),
+                            name.toUpperCase(),
                             style: const TextStyle(
                               color: Color(0xFF0C2D54),
                               fontSize: 16,
@@ -86,10 +86,10 @@ class _EquipesPageState extends State<EquipesPage> {
                   ),
               ],
             ),
-            TextoButton(
-              cor: UiCor.principal,
-              callback: () => _separarEquipes(),
-              texto: EQUIPES_NOVAMENTE,
+            LabelButton(
+              color: UiColor.primary,
+              callback: () => _splitTeams(),
+              text: GENERATE_TEAMS_AGAIN,
             ),
           ],
         ),

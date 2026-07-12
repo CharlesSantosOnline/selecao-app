@@ -1,45 +1,45 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/config/value_notifier_config.dart';
+import 'package:esportes_flutter/config/app_state.dart';
 
-class SelecionarClass {
-  int indice = 0;
+class TeamSelectionService {
+  int index = 0;
 
-  bool validarTimes(int numeroSelecionado) {
-    final int numero = numeroSelecionado;
-    final int lista = currentJogadores.value.length;
+  bool validateTeams(int selectedNumber) {
+    final int number = selectedNumber;
+    final int list = currentPlayers.value.length;
 
-    if (lista == 0) return false;
-    if (numero >= lista) return false;
+    if (list == 0) return false;
+    if (number >= list) return false;
     return true;
   }
 
-  List<List<String>> separarEquipes() {
-    List<List<String>> equipes = [];
-    List<String> lista = currentJogadores.value;
-    final int numero = currentQuantidade.value;
+  List<List<String>> splitTeams() {
+    List<List<String>> teams = [];
+    List<String> list = currentPlayers.value;
+    final int number = currentPlayerCount.value;
 
-    if (lista.length > numero) {
-      lista.shuffle();
+    if (list.length > number) {
+      list.shuffle();
 
-      int numGrupos = (lista.length / numero).ceil();
+      int groupCount = (list.length / number).ceil();
 
-      for (int i = 0; i < numGrupos; i++) {
-        int startIndex = i * numero;
-        int endIndex = min(startIndex + numero, lista.length);
+      for (int i = 0; i < groupCount; i++) {
+        int startIndex = i * number;
+        int endIndex = min(startIndex + number, list.length);
 
-        List<String> grupo = lista.sublist(startIndex, endIndex);
-        equipes.add(grupo);
+        List<String> group = list.sublist(startIndex, endIndex);
+        teams.add(group);
       }
     } else {
-      equipes.add(lista);
+      teams.add(list);
     }
 
-    return equipes;
+    return teams;
   }
 
-  Color definirCor() {
-    final listaCores = [
+  Color selectColor() {
+    final colors = [
       const Color(0xffC8F51B),
       const Color(0xffE9FFD9),
       const Color(0xffC8B7F3),
@@ -49,8 +49,8 @@ class SelecionarClass {
       const Color(0xFF1CF559),
     ];
 
-    final cor = listaCores[indice];
-    indice = (indice + 1) % listaCores.length;
-    return cor;
+    final color = colors[index];
+    index = (index + 1) % colors.length;
+    return color;
   }
 }

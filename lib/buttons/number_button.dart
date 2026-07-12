@@ -1,47 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:esportes_flutter/text/title_medium_text.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class NumeroButton extends StatefulWidget {
-  const NumeroButton({
+class NumberButton extends StatefulWidget {
+  const NumberButton({
     super.key,
     required Function callback,
-    required Color cor,
-    required int inicial,
-    required List<int> lista,
-    required String texto,
+    required Color color,
+    required int initialValue,
+    required List<int> list,
+    required String text,
   })  : _callback = callback,
-        _cor = cor,
-        _inicial = inicial,
-        _lista = lista,
-        _texto = texto;
+        _color = color,
+        _initialValue = initialValue,
+        _list = list,
+        _text = text;
 
   final Function _callback;
-  final Color _cor;
-  final int _inicial;
-  final List<int> _lista;
-  final String _texto;
+  final Color _color;
+  final int _initialValue;
+  final List<int> _list;
+  final String _text;
 
   @override
-  State<NumeroButton> createState() => _NumeroButtonState();
+  State<NumberButton> createState() => _NumberButtonState();
 }
 
-class _NumeroButtonState extends State<NumeroButton> {
+class _NumberButtonState extends State<NumberButton> {
   int? selecionado;
 
   @override
   void initState() {
     super.initState();
-    _selecionarNumero(widget._inicial);
+    _selectNumber(widget._initialValue);
   }
 
-  _selecionarNumero(int numero) {
-    setState(() => selecionado = numero);
+  _selectNumber(int number) {
+    setState(() => selecionado = number);
     widget._callback(selecionado);
   }
 
-  bool _verificarNumero(int numero) {
-    return selecionado == numero ? true : false;
+  bool _isSelectedNumber(int number) {
+    return selecionado == number ? true : false;
   }
 
   @override
@@ -55,8 +55,8 @@ class _NumeroButtonState extends State<NumeroButton> {
         Padding(
           padding: const EdgeInsets.all(16),
           child: TitleMediumText(
-            cor: widget._cor,
-            texto: widget._texto,
+            color: widget._color,
+            text: widget._text,
           ),
         ),
         SizedBox(
@@ -64,20 +64,20 @@ class _NumeroButtonState extends State<NumeroButton> {
           child: Wrap(
             alignment: WrapAlignment.start,
             children: [
-              for (var item in widget._lista)
+              for (var item in widget._list)
                 GestureDetector(
-                  onTap: () => _selecionarNumero(item),
+                  onTap: () => _selectNumber(item),
                   child: Container(
-                    color: _verificarNumero(item)
-                        ? widget._cor.withValues(alpha: 0.7)
-                        : widget._cor,
+                    color: _isSelectedNumber(item)
+                        ? widget._color.withValues(alpha: 0.7)
+                        : widget._color,
                     width: sizeWidth,
                     height: sizeWidth,
                     child: Center(
                       child: Text(
                         item.toString(),
                         style: TextStyle(
-                          color: UiCor.fundo,
+                          color: UiColor.background,
                           fontSize: fontSize,
                           fontWeight: FontWeight.bold,
                         ),

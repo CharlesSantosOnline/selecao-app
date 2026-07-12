@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/button/primeiro_button.dart';
+import 'package:esportes_flutter/buttons/primary_button.dart';
 import 'package:esportes_flutter/text/title_medium_text.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
-import 'package:esportes_flutter/theme/ui_tamanho.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
+import 'package:esportes_flutter/theme/ui_size.dart';
 
-class SimplesDialog extends StatefulWidget {
-  const SimplesDialog({
+class SimpleInfoDialog extends StatefulWidget {
+  const SimpleInfoDialog({
     super.key,
-    IconData? icone,
-    IconData? iconeAtivo,
-    required String texto,
-    required String titulo,
-  })  : _icone = icone,
-        _iconeAtivo = iconeAtivo,
-        _texto = texto,
-        _titulo = titulo;
+    IconData? icon,
+    IconData? activeIcon,
+    required String text,
+    required String title,
+  })  : _icon = icon,
+        _activeIcon = activeIcon,
+        _text = text,
+        _title = title;
 
-  final IconData? _icone;
-  final IconData? _iconeAtivo;
-  final String _texto;
-  final String _titulo;
+  final IconData? _icon;
+  final IconData? _activeIcon;
+  final String _text;
+  final String _title;
 
   @override
-  State<SimplesDialog> createState() => _OpcoesDialogState();
+  State<SimpleInfoDialog> createState() => _OptionsDialogState();
 }
 
-class _OpcoesDialogState extends State<SimplesDialog> {
+class _OptionsDialogState extends State<SimpleInfoDialog> {
   bool isPressed = false;
 
   @override
@@ -35,13 +35,13 @@ class _OpcoesDialogState extends State<SimplesDialog> {
         children: [
           const Icon(
             Icons.help_outline,
-            color: UiCor.principal,
+            color: UiColor.primary,
           ),
           const SizedBox(width: 16),
           Expanded(
             child: TitleMediumText(
-              texto: widget._titulo,
-              cor: UiCor.principal,
+              text: widget._title,
+              color: UiColor.primary,
             ),
           ),
         ],
@@ -50,9 +50,9 @@ class _OpcoesDialogState extends State<SimplesDialog> {
         child: ListBody(
           children: [
             Text(
-              widget._texto,
+              widget._text,
               style: const TextStyle(
-                color: UiCor.principal,
+                color: UiColor.primary,
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
               ),
@@ -64,12 +64,12 @@ class _OpcoesDialogState extends State<SimplesDialog> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            PrimeiroButton(
-              cor: UiCor.principal,
+            PrimaryButton(
+              color: UiColor.primary,
               callback: () => Navigator.of(context).pop(),
-              icone: widget._icone ?? Icons.highlight_off,
-              iconeAtivo: widget._iconeAtivo ?? Icons.cancel,
-              size: UiTamanho.botaoDialog,
+              icon: widget._icon ?? Icons.highlight_off,
+              activeIcon: widget._activeIcon ?? Icons.cancel,
+              size: UiSize.dialogButton,
             ),
           ],
         ),

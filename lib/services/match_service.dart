@@ -1,10 +1,10 @@
-import 'package:esportes_flutter/config/value_notifier_config.dart';
+import 'package:esportes_flutter/config/app_state.dart';
 
-class PartidaClass {
-  int alterarPeriodo(int atual) {
-    int periodo = currentDefinir.value.periodo;
+class MatchService {
+  int changePeriod(int atual) {
+    int period = currentMatchSettings.value.period;
 
-    if (atual < periodo) {
+    if (atual < period) {
       atual++;
     } else {
       atual = 1;
@@ -14,11 +14,11 @@ class PartidaClass {
   }
 }
 
-enum TempoEnum {
-  INICIAR('inicio'),
-  PARAR('parar'),
-  PAUSAR('pausar');
+enum TimerState {
+  START('inicio'),
+  STOP('parar'),
+  PAUSE('pausar');
 
   final String value;
-  const TempoEnum(this.value);
+  const TimerState(this.value);
 }

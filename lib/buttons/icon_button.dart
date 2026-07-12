@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/theme/ui_borda.dart';
-import 'package:esportes_flutter/theme/ui_tamanho.dart';
+import 'package:esportes_flutter/theme/ui_border.dart';
+import 'package:esportes_flutter/theme/ui_size.dart';
 
-class IconeButton extends StatefulWidget {
-  const IconeButton({
+class AppIconButton extends StatefulWidget {
+  const AppIconButton({
     super.key,
     required Function callback,
-    required IconData icone,
+    required IconData icon,
   })  : _callback = callback,
-        _icone = icone;
+        _icon = icon;
 
   final Function _callback;
-  final IconData _icone;
+  final IconData _icon;
 
   @override
-  State<IconeButton> createState() => _IconeButtonState();
+  State<AppIconButton> createState() => _AppIconButtonState();
 }
 
-class _IconeButtonState extends State<IconeButton> {
+class _AppIconButtonState extends State<AppIconButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: UiTamanho.icone,
-      height: UiTamanho.icone,
+      width: UiSize.icon,
+      height: UiSize.icon,
       child: InkWell(
-        borderRadius: BorderRadius.circular(UiBorda.circulo),
-        child: Icon(widget._icone),
+        borderRadius: BorderRadius.circular(UiBorder.circle),
+        child: Icon(widget._icon),
         onTap: () => widget._callback(),
       ),
     );

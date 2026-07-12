@@ -1,13 +1,13 @@
-class DefinirModel {
-  late String mandante;
-  late String visitante;
-  late int tempo;
-  late int periodo;
+class MatchSettings {
+  late String homeTeam;
+  late String awayTeam;
+  late int duration;
+  late int period;
 
-  DefinirModel({
-    required this.mandante,
-    required this.visitante,
-    required this.tempo,
-    required this.periodo,
+  MatchSettings({
+    required this.homeTeam,
+    required this.awayTeam,
+    required this.duration,
+    required this.period,
   });
 }

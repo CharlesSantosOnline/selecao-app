@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/button/primeiro_button.dart';
-import 'package:esportes_flutter/config/string_config.dart';
+import 'package:esportes_flutter/buttons/primary_button.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
 import 'package:esportes_flutter/text/title_medium_text.dart';
-import 'package:esportes_flutter/theme/ui_borda.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_border.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class JogadoresInput extends StatefulWidget {
-  const JogadoresInput({
+class PlayersInput extends StatefulWidget {
+  const PlayersInput({
     super.key,
     required Function callback,
   }) : _callback = callback;
@@ -14,47 +14,47 @@ class JogadoresInput extends StatefulWidget {
   final Function _callback;
 
   @override
-  State<JogadoresInput> createState() => _JogadoresInputState();
+  State<PlayersInput> createState() => _PlayersInputState();
 }
 
-class _JogadoresInputState extends State<JogadoresInput> {
-  final TextEditingController _controllerJogadores = TextEditingController();
+class _PlayersInputState extends State<PlayersInput> {
+  final TextEditingController _playersController = TextEditingController();
 
-  String _inputTexto = "";
+  String _inputText = "";
 
-  final List<String> _listaJogadores = [];
+  final List<String> _players = [];
 
-  void _separarPorVirgula() {
-    if (_inputTexto.isNotEmpty) {
-      if (_inputTexto.contains(',')) {
-        List<String> jogadores = _inputTexto.split(',');
+  void _splitByComma() {
+    if (_inputText.isNotEmpty) {
+      if (_inputText.contains(',')) {
+        List<String> players = _inputText.split(',');
 
-        jogadores = jogadores
-            .map((jogador) => jogador.trim())
-            .where((jogador) => jogador.isNotEmpty)
+        players = players
+            .map((player) => player.trim())
+            .where((player) => player.isNotEmpty)
             .toList();
 
-        setState(() => _listaJogadores.addAll(jogadores));
+        setState(() => _players.addAll(players));
       } else {
-        String jogador = _inputTexto.trim();
-        if (jogador.isNotEmpty) {
-          setState(() => _listaJogadores.add(jogador));
+        String player = _inputText.trim();
+        if (player.isNotEmpty) {
+          setState(() => _players.add(player));
         }
       }
     }
 
-    widget._callback(_listaJogadores);
-    _controllerJogadores.clear();
-    _inputTexto = "";
+    widget._callback(_players);
+    _playersController.clear();
+    _inputText = "";
   }
 
-  void _deletarJogador(String jogador) {
-    setState(() => _listaJogadores.remove(jogador));
+  void _deletePlayer(String player) {
+    setState(() => _players.remove(player));
   }
 
   @override
   void dispose() {
-    _controllerJogadores.dispose();
+    _playersController.dispose();
     super.dispose();
   }
 
@@ -69,45 +69,45 @@ class _JogadoresInputState extends State<JogadoresInput> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const TitleMediumText(
-                cor: UiCor.jogador,
-                texto: SELECIONAR_TIME,
+                color: UiColor.player,
+                text: ENTER_PLAYER_NAMES,
               ),
-              if (_listaJogadores.isNotEmpty)
+              if (_players.isNotEmpty)
                 TitleMediumText(
-                  texto:
-                      '${_listaJogadores.length} ${_listaJogadores.length > 1 ? NOMES : NOME}',
-                  cor: UiCor.jogador,
+                  text:
+                      '${_players.length} ${_players.length > 1 ? NAMES : NAME}',
+                  color: UiColor.player,
                 ),
             ],
           ),
         ),
         Container(
           width: double.infinity,
-          color: UiCor.jogador,
+          color: UiColor.player,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: _listaJogadores.isEmpty
+                padding: _players.isEmpty
                     ? const EdgeInsets.all(0)
                     : const EdgeInsets.all(8),
                 child: Wrap(
                   runSpacing: 8,
                   spacing: 8,
                   children: [
-                    for (var item in _listaJogadores)
+                    for (var item in _players)
                       GestureDetector(
-                        onTap: () => _deletarJogador(item),
+                        onTap: () => _deletePlayer(item),
                         child: Container(
                           padding: const EdgeInsets.fromLTRB(8, 8, 6, 8),
-                          color: UiCor.tag,
+                          color: UiColor.tag,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 item.toUpperCase(),
                                 style: const TextStyle(
-                                  color: UiCor.jogador,
+                                  color: UiColor.player,
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -115,7 +115,7 @@ class _JogadoresInputState extends State<JogadoresInput> {
                               const SizedBox(width: 8),
                               const Icon(
                                 Icons.close,
-                                color: UiCor.jogador,
+                                color: UiColor.player,
                               ),
                             ],
                           ),
@@ -129,21 +129,21 @@ class _JogadoresInputState extends State<JogadoresInput> {
                   Expanded(
                     child: TextFormField(
                       autofocus: false,
-                      controller: _controllerJogadores,
-                      onChanged: (value) => setState(() => _inputTexto = value),
+                      controller: _playersController,
+                      onChanged: (value) => setState(() => _inputText = value),
                       maxLines: 1,
                       textAlignVertical: TextAlignVertical.top,
                       style: const TextStyle(
-                        color: UiCor.hint,
+                        color: UiColor.hint,
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                       ),
                       decoration: InputDecoration(
-                        hintText: SELECIONAR_VAZIO,
+                        hintText: ENTER_NAMES_HINT,
                         filled: true,
-                        fillColor: UiCor.jogador,
+                        fillColor: UiColor.player,
                         hintStyle: const TextStyle(
-                          color: UiCor.hint,
+                          color: UiColor.hint,
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
                         ),
@@ -151,15 +151,15 @@ class _JogadoresInputState extends State<JogadoresInput> {
                           horizontal: 16,
                           vertical: 16,
                         ),
-                        border: UiBorda.inputBorda,
-                        enabledBorder: UiBorda.inputBorda,
-                        focusedBorder: UiBorda.inputBorda,
+                        border: UiBorder.inputBorder,
+                        enabledBorder: UiBorder.inputBorder,
+                        focusedBorder: UiBorder.inputBorder,
                       ),
                     ),
                   ),
-                  PrimeiroButton(
-                    cor: UiCor.jogador,
-                    callback: () => _separarPorVirgula(),
+                  PrimaryButton(
+                    color: UiColor.player,
+                    callback: () => _splitByComma(),
                   ),
                 ],
               ),

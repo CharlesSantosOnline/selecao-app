@@ -1,3 +1,3 @@
-class UiDuracao {
-  static const int transicoPagina = 300;
+class UiDuration {
+  static const int pageTransition = 300;
 }

@@ -1,5 +1,5 @@
-class ListaClass {
-  final List<int> listaQtdDeJogadores = [
+class OptionsService {
+  final List<int> playerCountOptions = [
     2,
     3,
     4,
@@ -20,6 +20,6 @@ class ListaClass {
     19,
     20,
   ];
-  final List<int> listaQtdPeriodos = [1, 2, 3, 4];
-  final List<int> listaDuracaoTempo = [10, 15, 20, 25, 30, 35, 40, 45];
+  final List<int> periodCountOptions = [1, 2, 3, 4];
+  final List<int> periodDurationOptions = [10, 15, 20, 25, 30, 35, 40, 45];
 }

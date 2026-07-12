@@ -1,53 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/appbar/padrao_appbar.dart';
-import 'package:esportes_flutter/button/numero_button.dart';
-import 'package:esportes_flutter/button/primeiro_button.dart';
-import 'package:esportes_flutter/class/lista_class.dart';
-import 'package:esportes_flutter/config/string_config.dart';
-import 'package:esportes_flutter/config/value_notifier_config.dart';
-import 'package:esportes_flutter/dialog/simples_dialog.dart';
-import 'package:esportes_flutter/input/texto_input.dart';
-import 'package:esportes_flutter/model/definir_model.dart';
+import 'package:esportes_flutter/app_bar/standard_app_bar.dart';
+import 'package:esportes_flutter/buttons/number_button.dart';
+import 'package:esportes_flutter/buttons/primary_button.dart';
+import 'package:esportes_flutter/services/options_service.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
+import 'package:esportes_flutter/config/app_state.dart';
+import 'package:esportes_flutter/dialogs/simple_dialog.dart';
+import 'package:esportes_flutter/inputs/text_input.dart';
+import 'package:esportes_flutter/models/match_settings.dart';
 import 'package:esportes_flutter/text/title_medium_text.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class DefinirPage extends StatefulWidget {
-  const DefinirPage({super.key});
+class MatchSettingsPage extends StatefulWidget {
+  const MatchSettingsPage({super.key});
 
   @override
-  State<DefinirPage> createState() => _DoarPageState();
+  State<MatchSettingsPage> createState() => _DonationPageState();
 }
 
-class _DoarPageState extends State<DefinirPage> {
-  final ListaClass _listaClass = ListaClass();
+class _DonationPageState extends State<MatchSettingsPage> {
+  final OptionsService _optionsService = OptionsService();
 
-  String _mandante = currentDefinir.value.mandante;
-  String _visitante = currentDefinir.value.visitante;
-  int _periodo = currentDefinir.value.periodo;
-  int _tempo = currentDefinir.value.tempo;
+  String _homeTeam = currentMatchSettings.value.homeTeam;
+  String _awayTeam = currentMatchSettings.value.awayTeam;
+  int _period = currentMatchSettings.value.period;
+  int _timerState = currentMatchSettings.value.duration;
 
-  Future<void> _dialogInfo() async {
+  Future<void> _showInfoDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return const SimplesDialog(
-          titulo: COMO_USAR,
-          texto: DEFINIR_INSTRUCAO,
+        return const SimpleInfoDialog(
+          title: HOW_TO_USE,
+          text: SET_MATCH_INSTRUCTIONS,
         );
       },
     );
   }
 
-  void _definirPartida() {
-    DefinirModel partida = DefinirModel(
-      mandante: _mandante,
-      visitante: _visitante,
-      tempo: _tempo,
-      periodo: _periodo,
+  void _saveMatchSettings() {
+    MatchSettings matchSettings = MatchSettings(
+      homeTeam: _homeTeam,
+      awayTeam: _awayTeam,
+      duration: _timerState,
+      period: _period,
     );
 
-    currentDefinir.value = partida;
+    currentMatchSettings.value = matchSettings;
     Navigator.of(context).pop();
   }
 
@@ -59,55 +59,55 @@ class _DoarPageState extends State<DefinirPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PadraoAppbar(
-              callback: () => _dialogInfo(),
-              texto: DEFINIR_PARTIDA,
+            StandardAppBar(
+              callback: () => _showInfoDialog(),
+              text: SET_MATCH,
             ),
             const SizedBox(height: 16),
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: TitleMediumText(
-                cor: UiCor.mandante,
-                texto: MANDANTE_EQUIPE,
+                color: UiColor.homeTeam,
+                text: HOME_TEAM_LABEL,
               ),
             ),
-            TextoInput(
-              callback: (value) => _mandante = value,
-              controller:
-                  TextEditingController(text: currentDefinir.value.mandante),
-              cor: UiCor.mandante,
-              hint: MANDANTE,
+            AppTextInput(
+              callback: (value) => _homeTeam = value,
+              controller: TextEditingController(
+                  text: currentMatchSettings.value.homeTeam),
+              color: UiColor.homeTeam,
+              hint: HOME_TEAM,
             ),
             const Padding(
               padding: EdgeInsets.all(16),
               child: TitleMediumText(
-                cor: UiCor.visitante,
-                texto: VISITANTE_EQUIPE,
+                color: UiColor.awayTeam,
+                text: AWAY_TEAM_LABEL,
               ),
             ),
-            TextoInput(
-              callback: (value) => _visitante = value,
-              controller:
-                  TextEditingController(text: currentDefinir.value.visitante),
-              cor: UiCor.visitante,
-              hint: VISITANTE,
+            AppTextInput(
+              callback: (value) => _awayTeam = value,
+              controller: TextEditingController(
+                  text: currentMatchSettings.value.awayTeam),
+              color: UiColor.awayTeam,
+              hint: AWAY_TEAM,
             ),
-            NumeroButton(
-              callback: (value) => _periodo = value,
-              cor: UiCor.periodo,
-              inicial: currentDefinir.value.periodo,
-              lista: _listaClass.listaQtdPeriodos,
-              texto: PERIODO_SELECIONAR,
+            NumberButton(
+              callback: (value) => _period = value,
+              color: UiColor.period,
+              initialValue: currentMatchSettings.value.period,
+              list: _optionsService.periodCountOptions,
+              text: SELECT_PERIOD_COUNT,
             ),
-            NumeroButton(
-              callback: (value) => _tempo = value,
-              cor: UiCor.tempo,
-              inicial: currentDefinir.value.tempo,
-              lista: _listaClass.listaDuracaoTempo,
-              texto: TEMPO_SELECIONAR,
+            NumberButton(
+              callback: (value) => _timerState = value,
+              color: UiColor.duration,
+              initialValue: currentMatchSettings.value.duration,
+              list: _optionsService.periodDurationOptions,
+              text: TIME_SELECT,
             ),
-            PrimeiroButton(
-              callback: () => _definirPartida(),
+            PrimaryButton(
+              callback: () => _saveMatchSettings(),
               full: true,
             ),
           ],

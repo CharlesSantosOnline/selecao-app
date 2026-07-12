@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:esportes_flutter/appbar/voltar_appbar.dart';
-import 'package:esportes_flutter/button/texto_button.dart';
-import 'package:esportes_flutter/config/string_config.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
-import 'package:esportes_flutter/theme/ui_tamanho.dart';
+import 'package:esportes_flutter/app_bar/back_app_bar.dart';
+import 'package:esportes_flutter/buttons/text_button.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
+import 'package:esportes_flutter/theme/ui_size.dart';
 
-class DoarPage extends StatefulWidget {
-  const DoarPage({super.key});
+class DonationPage extends StatefulWidget {
+  const DonationPage({super.key});
 
   @override
-  State<DoarPage> createState() => _DoarPageState();
+  State<DonationPage> createState() => _DonationPageState();
 }
 
-class _DoarPageState extends State<DoarPage> {
-  void _copiarPix(BuildContext context) {
-    Clipboard.setData(const ClipboardData(text: PIX_CODIGO));
+class _DonationPageState extends State<DonationPage> {
+  void _copyPixKey(BuildContext context) {
+    Clipboard.setData(const ClipboardData(text: PIX_KEY));
   }
 
   @override
@@ -26,26 +26,26 @@ class _DoarPageState extends State<DoarPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const VoltarAppbar(texto: DOAR),
+            const BackAppBar(text: DONATE),
             Container(
-              color: UiCor.fundo,
+              color: UiColor.background,
               padding: const EdgeInsets.all(16),
               child: const Text(
-                DOAR_DESCRICAO,
+                DONATION_DESCRIPTION,
                 style: TextStyle(
-                  color: UiCor.principal,
+                  color: UiColor.primary,
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
                 ),
               ),
             ),
-            TextoButton(
-              callback: () => _copiarPix(context),
-              cor: UiCor.principal,
-              icone: Icons.content_copy,
-              iconeAtivo: Icons.file_copy,
-              size: UiTamanho.botaoDialog,
-              texto: PIX_COPIAR,
+            LabelButton(
+              callback: () => _copyPixKey(context),
+              color: UiColor.primary,
+              icon: Icons.content_copy,
+              activeIcon: Icons.file_copy,
+              size: UiSize.dialogButton,
+              text: COPY_PIX_KEY,
             ),
             const SizedBox(height: 24),
           ],

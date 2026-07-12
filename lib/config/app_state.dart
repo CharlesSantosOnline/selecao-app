@@ -1,16 +1,17 @@
 import 'package:flutter/widgets.dart';
-import 'package:esportes_flutter/config/string_config.dart';
-import 'package:esportes_flutter/model/definir_model.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
+import 'package:esportes_flutter/models/match_settings.dart';
 
-ValueNotifier<List<String>> currentJogadores = ValueNotifier<List<String>>([]);
+ValueNotifier<List<String>> currentPlayers = ValueNotifier<List<String>>([]);
 
-ValueNotifier<int> currentQuantidade = ValueNotifier<int>(5);
+ValueNotifier<int> currentPlayerCount = ValueNotifier<int>(5);
 
-ValueNotifier<DefinirModel> currentDefinir = ValueNotifier<DefinirModel>(
-  DefinirModel(
-    mandante: MANDANTE,
-    visitante: VISITANTE,
-    tempo: 25,
-    periodo: 1,
+ValueNotifier<MatchSettings> currentMatchSettings =
+    ValueNotifier<MatchSettings>(
+  MatchSettings(
+    homeTeam: HOME_TEAM,
+    awayTeam: AWAY_TEAM,
+    duration: 25,
+    period: 1,
   ),
 );

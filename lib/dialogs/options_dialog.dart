@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/button/primeiro_button.dart';
+import 'package:esportes_flutter/buttons/primary_button.dart';
 import 'package:esportes_flutter/text/title_medium_text.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
-import 'package:esportes_flutter/theme/ui_tamanho.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
+import 'package:esportes_flutter/theme/ui_size.dart';
 
-class OpcoesDialog extends StatefulWidget {
-  const OpcoesDialog({
+class OptionsDialog extends StatefulWidget {
+  const OptionsDialog({
     super.key,
     required Function callback,
-    IconData? icone,
-    IconData? iconeAtivo,
-    required String texto,
-    required String titulo,
+    IconData? icon,
+    IconData? activeIcon,
+    required String text,
+    required String title,
   })  : _callback = callback,
-        _icone = icone,
-        _iconeAtivo = iconeAtivo,
-        _texto = texto,
-        _titulo = titulo;
+        _icon = icon,
+        _activeIcon = activeIcon,
+        _text = text,
+        _title = title;
 
   final Function _callback;
-  final IconData? _icone;
-  final IconData? _iconeAtivo;
-  final String _texto;
-  final String _titulo;
+  final IconData? _icon;
+  final IconData? _activeIcon;
+  final String _text;
+  final String _title;
 
   @override
-  State<OpcoesDialog> createState() => _OpcoesDialogState();
+  State<OptionsDialog> createState() => _OptionsDialogState();
 }
 
-class _OpcoesDialogState extends State<OpcoesDialog> {
+class _OptionsDialogState extends State<OptionsDialog> {
   bool isPressed = false;
 
   @override
@@ -38,12 +38,12 @@ class _OpcoesDialogState extends State<OpcoesDialog> {
         children: [
           const Icon(
             Icons.warning_amber,
-            color: UiCor.principal,
+            color: UiColor.primary,
           ),
           const SizedBox(width: 16),
           TitleMediumText(
-            texto: widget._titulo,
-            cor: UiCor.principal,
+            text: widget._title,
+            color: UiColor.primary,
           ),
         ],
       ),
@@ -51,9 +51,9 @@ class _OpcoesDialogState extends State<OpcoesDialog> {
         child: ListBody(
           children: [
             Text(
-              widget._texto,
+              widget._text,
               style: const TextStyle(
-                color: UiCor.principal,
+                color: UiColor.primary,
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
               ),
@@ -65,18 +65,18 @@ class _OpcoesDialogState extends State<OpcoesDialog> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            PrimeiroButton(
+            PrimaryButton(
               callback: () => widget._callback(false),
-              cor: const Color(0xFF0C2D54),
-              icone: widget._icone ?? Icons.highlight_off,
-              iconeAtivo: widget._iconeAtivo ?? Icons.cancel,
-              iconeCor: UiCor.principal,
-              size: UiTamanho.botaoDialog,
+              color: const Color(0xFF0C2D54),
+              icon: widget._icon ?? Icons.highlight_off,
+              activeIcon: widget._activeIcon ?? Icons.cancel,
+              iconColor: UiColor.primary,
+              size: UiSize.dialogButton,
             ),
             const SizedBox(width: 16),
-            PrimeiroButton(
+            PrimaryButton(
               callback: () => widget._callback(true),
-              size: UiTamanho.botaoDialog,
+              size: UiSize.dialogButton,
             ),
           ],
         ),

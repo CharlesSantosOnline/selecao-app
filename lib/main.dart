@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:esportes_flutter/config/routes_config.dart';
-import 'package:esportes_flutter/theme/ui_tema.dart';
+import 'package:esportes_flutter/config/router_config.dart';
+import 'package:esportes_flutter/theme/ui_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  runApp(const SportsApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class SportsApp extends StatefulWidget {
+  const SportsApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<SportsApp> createState() => _SportsAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class _SportsAppState extends State<SportsApp> with WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
-    UiTema.definirTema();
+    UiTheme.applySystemTheme();
   }
 
   @override
   void didChangePlatformBrightness() {
-    UiTema.definirTema();
+    UiTheme.applySystemTheme();
   }
 
   @override
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: UiTema.tema,
+      theme: UiTheme.theme,
       routerDelegate: routes.routerDelegate,
       routeInformationParser: routes.routeInformationParser,
       routeInformationProvider: routes.routeInformationProvider,

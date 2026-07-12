@@ -1,59 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:esportes_flutter/appbar/padrao_appbar.dart';
-import 'package:esportes_flutter/button/numero_button.dart';
-import 'package:esportes_flutter/button/primeiro_button.dart';
-import 'package:esportes_flutter/class/lista_class.dart';
-import 'package:esportes_flutter/class/routes_class.dart';
-import 'package:esportes_flutter/class/selecionar_class.dart';
-import 'package:esportes_flutter/config/string_config.dart';
-import 'package:esportes_flutter/config/value_notifier_config.dart';
-import 'package:esportes_flutter/dialog/simples_dialog.dart';
-import 'package:esportes_flutter/input/jogadores_input.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
+import 'package:esportes_flutter/app_bar/standard_app_bar.dart';
+import 'package:esportes_flutter/buttons/number_button.dart';
+import 'package:esportes_flutter/buttons/primary_button.dart';
+import 'package:esportes_flutter/services/options_service.dart';
+import 'package:esportes_flutter/services/routes_service.dart';
+import 'package:esportes_flutter/services/team_selection_service.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
+import 'package:esportes_flutter/config/app_state.dart';
+import 'package:esportes_flutter/dialogs/simple_dialog.dart';
+import 'package:esportes_flutter/inputs/players_input.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
 
-class SelecionarPage extends StatefulWidget {
-  const SelecionarPage({super.key});
+class TeamSelectionPage extends StatefulWidget {
+  const TeamSelectionPage({super.key});
 
   @override
-  State<SelecionarPage> createState() => _SelecionarPageState();
+  State<TeamSelectionPage> createState() => _TeamSelectionPageState();
 }
 
-class _SelecionarPageState extends State<SelecionarPage> {
-  final ListaClass _listaClass = ListaClass();
-  final SelecionarClass _selecionarClass = SelecionarClass();
+class _TeamSelectionPageState extends State<TeamSelectionPage> {
+  final OptionsService _optionsService = OptionsService();
+  final TeamSelectionService _teamSelectionService = TeamSelectionService();
 
-  void _selecionarNumero(int numero) {
-    currentQuantidade.value = numero;
+  void _selectNumber(int number) {
+    currentPlayerCount.value = number;
   }
 
-  void _validarTimes() {
-    _selecionarClass.validarTimes(currentQuantidade.value)
-        ? context.push(RoutesEnum.EQUIPES.value)
-        : _dialogErroNumero();
+  void _validateTeams() {
+    _teamSelectionService.validateTeams(currentPlayerCount.value)
+        ? context.push(AppRoute.TEAMS.value)
+        : _showNumberErrorDialog();
   }
 
-  Future<void> _dialogErroNumero() async {
+  Future<void> _showNumberErrorDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return const SimplesDialog(
-          titulo: SELECIONAR_NUMERO_ERRO,
-          texto: SELECIONAR_NUMERO_ERRO_DESCRICAO,
+        return const SimpleInfoDialog(
+          title: PLAYER_COUNT_ERROR,
+          text: PLAYER_COUNT_ERROR_DESCRIPTION,
         );
       },
     );
   }
 
-  Future<void> _dialogInfo() async {
+  Future<void> _showInfoDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return const SimplesDialog(
-          titulo: COMO_USAR,
-          texto: SELECIONAR_INSTRUCAO,
+        return const SimpleInfoDialog(
+          title: HOW_TO_USE,
+          text: TEAM_SELECTION_INSTRUCTIONS,
         );
       },
     );
@@ -67,21 +67,21 @@ class _SelecionarPageState extends State<SelecionarPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            PadraoAppbar(
-              callback: () => _dialogInfo(),
-              texto: SELECIONAR_EQUIPES,
+            StandardAppBar(
+              callback: () => _showInfoDialog(),
+              text: SELECT_TEAMS,
             ),
-            JogadoresInput(callback: (value) => currentJogadores.value = value),
-            NumeroButton(
-              callback: (value) => _selecionarNumero(value),
-              cor: UiCor.numero,
-              inicial: currentQuantidade.value,
-              lista: _listaClass.listaQtdDeJogadores,
-              texto: SELECIONAR_NUMERO,
+            PlayersInput(callback: (value) => currentPlayers.value = value),
+            NumberButton(
+              callback: (value) => _selectNumber(value),
+              color: UiColor.number,
+              initialValue: currentPlayerCount.value,
+              list: _optionsService.playerCountOptions,
+              text: SELECT_PLAYER_COUNT,
             ),
-            PrimeiroButton(
-              cor: UiCor.principal,
-              callback: () => _validarTimes(),
+            PrimaryButton(
+              color: UiColor.primary,
+              callback: () => _validateTeams(),
               full: true,
             ),
           ],

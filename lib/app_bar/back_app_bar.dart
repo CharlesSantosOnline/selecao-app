@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/button/icone_button.dart';
+import 'package:esportes_flutter/buttons/icon_button.dart';
 
-class VoltarAppbar extends StatelessWidget implements PreferredSizeWidget {
+class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
-  const VoltarAppbar({
+  const BackAppBar({
     super.key,
-    required String texto,
-  }) : _texto = texto;
+    required String text,
+  }) : _text = text;
 
-  final String _texto;
+  final String _text;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconeButton(
+      leading: AppIconButton(
         callback: () => Navigator.of(context).pop(),
-        icone: Icons.arrow_circle_left_outlined,
+        icon: Icons.arrow_circle_left_outlined,
       ),
       title: Text(
-        _texto,
+        _text,
         style: Theme.of(context).textTheme.titleLarge,
       ),
     );

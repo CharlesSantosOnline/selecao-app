@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:esportes_flutter/config/string_config.dart';
-import 'package:esportes_flutter/model/menu_model.dart';
-import 'package:esportes_flutter/theme/ui_cor.dart';
-import 'package:esportes_flutter/theme/ui_icone.dart';
+import 'package:esportes_flutter/config/string_constants.dart';
+import 'package:esportes_flutter/models/menu_item.dart';
+import 'package:esportes_flutter/theme/ui_color.dart';
+import 'package:esportes_flutter/theme/ui_icon.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:esportes_flutter/widget/item_menu_widget.dart';
+import 'package:esportes_flutter/widgets/menu_item_widget.dart';
 
-class InicioPage extends StatefulWidget {
-  const InicioPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<InicioPage> createState() => _InicioPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _InicioPageState extends State<InicioPage> {
+class _HomePageState extends State<HomePage> {
   PackageInfo _packageInfo = PackageInfo(
     appName: 'Unknown',
     packageName: 'Unknown',
@@ -26,11 +26,11 @@ class _InicioPageState extends State<InicioPage> {
 
   @override
   void initState() {
-    _definirVersao();
+    _loadVersion();
     super.initState();
   }
 
-  Future<void> _definirVersao() async {
+  Future<void> _loadVersion() async {
     final info = await PackageInfo.fromPlatform();
     setState(() => _packageInfo = info);
   }
@@ -45,14 +45,14 @@ class _InicioPageState extends State<InicioPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SvgPicture.asset(UiIcone.logo),
+            SvgPicture.asset(UiIcon.logo),
             const SizedBox(height: 40),
-            SvgPicture.asset(UiIcone.identidade),
+            SvgPicture.asset(UiIcon.identity),
             const SizedBox(height: 40),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (var item in MenuModel.listaMenu) ItemMenuWidget(item: item)
+                for (var item in MenuItem.menuItems) MenuItemWidget(item: item)
               ],
             ),
             const SizedBox(height: 40),
@@ -62,7 +62,7 @@ class _InicioPageState extends State<InicioPage> {
                 const Text(
                   BY,
                   style: TextStyle(
-                    color: UiCor.principal,
+                    color: UiColor.primary,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
@@ -70,7 +70,7 @@ class _InicioPageState extends State<InicioPage> {
                 Text(
                   'v${_packageInfo.version}',
                   style: const TextStyle(
-                    color: UiCor.principal,
+                    color: UiColor.primary,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),

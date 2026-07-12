@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:esportes_flutter/button/primeiro_button.dart';
+import 'package:esportes_flutter/buttons/primary_button.dart';
 import 'package:esportes_flutter/text/title_medium_text.dart';
 
-class TextoButton extends StatefulWidget {
-  const TextoButton({
+class LabelButton extends StatefulWidget {
+  const LabelButton({
     super.key,
     required Function callback,
-    required Color cor,
-    IconData? icone,
-    IconData? iconeAtivo,
+    required Color color,
+    IconData? icon,
+    IconData? activeIcon,
     double? size,
-    required String texto,
+    required String text,
   })  : _callback = callback,
-        _cor = cor,
-        _icone = icone,
-        _iconeAtivo = iconeAtivo,
+        _color = color,
+        _icon = icon,
+        _activeIcon = activeIcon,
         _size = size,
-        _texto = texto;
+        _text = text;
 
   final Function _callback;
-  final Color _cor;
-  final IconData? _icone;
-  final IconData? _iconeAtivo;
+  final Color _color;
+  final IconData? _icon;
+  final IconData? _activeIcon;
   final double? _size;
-  final String _texto;
+  final String _text;
 
   @override
-  State<TextoButton> createState() => _ItemMenuWidgetState();
+  State<LabelButton> createState() => _MenuItemWidgetState();
 }
 
-class _ItemMenuWidgetState extends State<TextoButton> {
+class _MenuItemWidgetState extends State<LabelButton> {
   bool isPressed = false;
 
   @override
@@ -39,14 +39,14 @@ class _ItemMenuWidgetState extends State<TextoButton> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-            child: TitleMediumText(cor: widget._cor, texto: widget._texto),
+            child: TitleMediumText(color: widget._color, text: widget._text),
           ),
         ),
-        PrimeiroButton(
-          cor: widget._cor,
+        PrimaryButton(
+          color: widget._color,
           callback: () => widget._callback(),
-          icone: widget._icone,
-          iconeAtivo: widget._iconeAtivo,
+          icon: widget._icon,
+          activeIcon: widget._activeIcon,
           size: widget._size,
         ),
       ],

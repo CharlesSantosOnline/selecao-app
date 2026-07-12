@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:esportes_flutter/theme/ui_duracao.dart';
+import 'package:esportes_flutter/theme/ui_duration.dart';
 
 CustomTransitionPage transicaoPaginas<T>({
   required BuildContext context,
@@ -10,7 +10,7 @@ CustomTransitionPage transicaoPaginas<T>({
   return CustomTransitionPage(
     key: state.pageKey,
     child: child,
-    transitionDuration: const Duration(milliseconds: UiDuracao.transicoPagina),
+    transitionDuration: const Duration(milliseconds: UiDuration.pageTransition),
     transitionsBuilder: (context, animation, secondaryAnimation, child) =>
         SlideTransition(
       position: Tween<Offset>(
@@ -22,14 +22,14 @@ CustomTransitionPage transicaoPaginas<T>({
   );
 }
 
-enum RoutesEnum {
-  DEFINIR('/definir'),
-  DOAR('/doar'),
-  INICIO('/inicio'),
-  PLACAR('/placar'),
-  SELECIONAR('/selecionar'),
-  EQUIPES('/equipes');
+enum AppRoute {
+  MATCH_SETTINGS('/match-settings'),
+  DONATE('/donation'),
+  HOME('/home'),
+  SCOREBOARD('/scoreboard'),
+  SELECT('/team-selection'),
+  TEAMS('/teams');
 
   final String value;
-  const RoutesEnum(this.value);
+  const AppRoute(this.value);
 }
