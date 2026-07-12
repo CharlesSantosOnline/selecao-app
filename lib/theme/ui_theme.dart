@@ -4,22 +4,28 @@ import 'package:esportes_flutter/theme/ui_color.dart';
 import 'package:esportes_flutter/theme/ui_text.dart';
 
 class UiTheme {
+  static const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+    statusBarBrightness: Brightness.dark,
+    statusBarColor: UiColor.background,
+    statusBarIconBrightness: Brightness.light,
+    systemNavigationBarColor: UiColor.background,
+    systemNavigationBarDividerColor: UiColor.background,
+    systemNavigationBarIconBrightness: Brightness.light,
+    systemStatusBarContrastEnforced: false,
+    systemNavigationBarContrastEnforced: false,
+  );
+
   static void applySystemTheme() {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.light,
-        statusBarColor: UiColor.statusBar,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: UiColor.navigationBar,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-    );
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
   static ThemeData theme = ThemeData(
     appBarTheme: const AppBarTheme(
       backgroundColor: UiColor.appbar,
       elevation: 0,
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
+      systemOverlayStyle: systemUiOverlayStyle,
       iconTheme: IconThemeData(color: UiColor.primary),
       titleSpacing: 0,
     ),

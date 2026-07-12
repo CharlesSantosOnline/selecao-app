@@ -39,45 +39,48 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 0),
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            SvgPicture.asset(UiIcon.logo),
-            const SizedBox(height: 40),
-            SvgPicture.asset(UiIcon.identity),
-            const SizedBox(height: 40),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (var item in MenuItem.menuItems) MenuItemWidget(item: item)
-              ],
-            ),
-            const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  BY,
-                  style: TextStyle(
-                    color: UiColor.primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SvgPicture.asset(UiIcon.logo),
+              const SizedBox(height: 40),
+              SvgPicture.asset(UiIcon.identity),
+              const SizedBox(height: 40),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (var item in MenuItem.menuItems)
+                    MenuItemWidget(item: item)
+                ],
+              ),
+              const SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    BY,
+                    style: TextStyle(
+                      color: UiColor.primary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  'v${_packageInfo.version}',
-                  style: const TextStyle(
-                    color: UiColor.primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    'v${_packageInfo.version}',
+                    style: const TextStyle(
+                      color: UiColor.primary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

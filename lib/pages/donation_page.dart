@@ -22,33 +22,35 @@ class _DonationPageState extends State<DonationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 0),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const BackAppBar(text: DONATE),
-            Container(
-              color: UiColor.background,
-              padding: const EdgeInsets.all(16),
-              child: const Text(
-                DONATION_DESCRIPTION,
-                style: TextStyle(
-                  color: UiColor.primary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const BackAppBar(text: DONATE),
+              Container(
+                color: UiColor.background,
+                padding: const EdgeInsets.all(16),
+                child: const Text(
+                  DONATION_DESCRIPTION,
+                  style: TextStyle(
+                    color: UiColor.primary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
-            ),
-            LabelButton(
-              callback: () => _copyPixKey(context),
-              color: UiColor.primary,
-              icon: Icons.content_copy,
-              activeIcon: Icons.file_copy,
-              size: UiSize.dialogButton,
-              text: COPY_PIX_KEY,
-            ),
-            const SizedBox(height: 24),
-          ],
+              LabelButton(
+                callback: () => _copyPixKey(context),
+                color: UiColor.primary,
+                icon: Icons.content_copy,
+                activeIcon: Icons.file_copy,
+                size: UiSize.dialogButton,
+                text: COPY_PIX_KEY,
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
         ),
       ),
     );

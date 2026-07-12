@@ -63,28 +63,30 @@ class _TeamSelectionPageState extends State<TeamSelectionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 0),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            StandardAppBar(
-              callback: () => _showInfoDialog(),
-              text: SELECT_TEAMS,
-            ),
-            PlayersInput(callback: (value) => currentPlayers.value = value),
-            NumberButton(
-              callback: (value) => _selectNumber(value),
-              color: UiColor.number,
-              initialValue: currentPlayerCount.value,
-              list: _optionsService.playerCountOptions,
-              text: SELECT_PLAYER_COUNT,
-            ),
-            PrimaryButton(
-              color: UiColor.primary,
-              callback: () => _validateTeams(),
-              full: true,
-            ),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              StandardAppBar(
+                callback: () => _showInfoDialog(),
+                text: SELECT_TEAMS,
+              ),
+              PlayersInput(callback: (value) => currentPlayers.value = value),
+              NumberButton(
+                callback: (value) => _selectNumber(value),
+                color: UiColor.number,
+                initialValue: currentPlayerCount.value,
+                list: _optionsService.playerCountOptions,
+                text: SELECT_PLAYER_COUNT,
+              ),
+              PrimaryButton(
+                color: UiColor.primary,
+                callback: () => _validateTeams(),
+                full: true,
+              ),
+            ],
+          ),
         ),
       ),
     );

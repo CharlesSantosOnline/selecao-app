@@ -55,62 +55,64 @@ class _DonationPageState extends State<MatchSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 0),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            StandardAppBar(
-              callback: () => _showInfoDialog(),
-              text: SET_MATCH,
-            ),
-            const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TitleMediumText(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              StandardAppBar(
+                callback: () => _showInfoDialog(),
+                text: SET_MATCH,
+              ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: TitleMediumText(
+                  color: UiColor.homeTeam,
+                  text: HOME_TEAM_LABEL,
+                ),
+              ),
+              AppTextInput(
+                callback: (value) => _homeTeam = value,
+                controller: TextEditingController(
+                    text: currentMatchSettings.value.homeTeam),
                 color: UiColor.homeTeam,
-                text: HOME_TEAM_LABEL,
+                hint: HOME_TEAM,
               ),
-            ),
-            AppTextInput(
-              callback: (value) => _homeTeam = value,
-              controller: TextEditingController(
-                  text: currentMatchSettings.value.homeTeam),
-              color: UiColor.homeTeam,
-              hint: HOME_TEAM,
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: TitleMediumText(
+              const Padding(
+                padding: EdgeInsets.all(16),
+                child: TitleMediumText(
+                  color: UiColor.awayTeam,
+                  text: AWAY_TEAM_LABEL,
+                ),
+              ),
+              AppTextInput(
+                callback: (value) => _awayTeam = value,
+                controller: TextEditingController(
+                    text: currentMatchSettings.value.awayTeam),
                 color: UiColor.awayTeam,
-                text: AWAY_TEAM_LABEL,
+                hint: AWAY_TEAM,
               ),
-            ),
-            AppTextInput(
-              callback: (value) => _awayTeam = value,
-              controller: TextEditingController(
-                  text: currentMatchSettings.value.awayTeam),
-              color: UiColor.awayTeam,
-              hint: AWAY_TEAM,
-            ),
-            NumberButton(
-              callback: (value) => _period = value,
-              color: UiColor.period,
-              initialValue: currentMatchSettings.value.period,
-              list: _optionsService.periodCountOptions,
-              text: SELECT_PERIOD_COUNT,
-            ),
-            NumberButton(
-              callback: (value) => _timerState = value,
-              color: UiColor.duration,
-              initialValue: currentMatchSettings.value.duration,
-              list: _optionsService.periodDurationOptions,
-              text: TIME_SELECT,
-            ),
-            PrimaryButton(
-              callback: () => _saveMatchSettings(),
-              full: true,
-            ),
-          ],
+              NumberButton(
+                callback: (value) => _period = value,
+                color: UiColor.period,
+                initialValue: currentMatchSettings.value.period,
+                list: _optionsService.periodCountOptions,
+                text: SELECT_PERIOD_COUNT,
+              ),
+              NumberButton(
+                callback: (value) => _timerState = value,
+                color: UiColor.duration,
+                initialValue: currentMatchSettings.value.duration,
+                list: _optionsService.periodDurationOptions,
+                text: TIME_SELECT,
+              ),
+              PrimaryButton(
+                callback: () => _saveMatchSettings(),
+                full: true,
+              ),
+            ],
+          ),
         ),
       ),
     );

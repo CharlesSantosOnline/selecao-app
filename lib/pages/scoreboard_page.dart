@@ -231,198 +231,201 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
       },
       child: Scaffold(
         appBar: AppBar(toolbarHeight: 0),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              StandardAppBar(
-                callback: () => _showInfoDialog(),
-                text: SCOREBOARD_AND_TIMER,
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Container(
-                    width: halfWidth,
-                    color: UiColor.display,
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: Text(
-                        '${_period.toString()}° $TIME',
-                        style: const TextStyle(
-                          color: UiColor.period,
-                          fontSize: 24,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'display',
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                StandardAppBar(
+                  callback: () => _showInfoDialog(),
+                  text: SCOREBOARD_AND_TIMER,
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Container(
+                      width: halfWidth,
+                      color: UiColor.display,
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: Text(
+                          '${_period.toString()}° $TIME',
+                          style: const TextStyle(
+                            color: UiColor.period,
+                            fontSize: 24,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'display',
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: spacing),
-                  Container(
-                    width: halfWidth,
-                    color: UiColor.display,
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: timerDisplay(),
+                    const SizedBox(width: spacing),
+                    Container(
+                      width: halfWidth,
+                      color: UiColor.display,
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: timerDisplay(),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: spacing),
-              Row(
-                children: [
-                  Container(
-                    width: halfWidth,
-                    color: UiColor.display,
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: Text(
-                        currentMatchSettings.value.homeTeam,
-                        style: const TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                          color: UiColor.homeTeam,
-                          fontSize: 24,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'display',
+                  ],
+                ),
+                const SizedBox(height: spacing),
+                Row(
+                  children: [
+                    Container(
+                      width: halfWidth,
+                      color: UiColor.display,
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: Text(
+                          currentMatchSettings.value.homeTeam,
+                          style: const TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            color: UiColor.homeTeam,
+                            fontSize: 24,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'display',
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: spacing),
-                  Container(
-                    width: halfWidth,
-                    color: UiColor.display,
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: Text(
-                        currentMatchSettings.value.awayTeam,
-                        style: const TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                          color: UiColor.awayTeam,
-                          fontSize: 24,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'display',
+                    const SizedBox(width: spacing),
+                    Container(
+                      width: halfWidth,
+                      color: UiColor.display,
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: Text(
+                          currentMatchSettings.value.awayTeam,
+                          style: const TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            color: UiColor.awayTeam,
+                            fontSize: 24,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'display',
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: spacing),
+                Row(
+                  children: [
+                    Container(
+                      width: halfWidth,
+                      color: UiColor.display,
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: Text(
+                          _homeScore.toString(),
+                          style: TextStyle(
+                            color: UiColor.homeTeam,
+                            fontSize: width * 0.2,
+                            fontFamily: 'display',
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
                     ),
-                  )
-                ],
-              ),
-              const SizedBox(height: spacing),
-              Row(
-                children: [
-                  Container(
-                    width: halfWidth,
-                    color: UiColor.display,
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: Text(
-                        _homeScore.toString(),
-                        style: TextStyle(
-                          color: UiColor.homeTeam,
-                          fontSize: width * 0.2,
-                          fontFamily: 'display',
-                          fontWeight: FontWeight.normal,
+                    const SizedBox(width: spacing),
+                    Container(
+                      width: halfWidth,
+                      color: UiColor.display,
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: Text(
+                          _awayScore.toString(),
+                          style: TextStyle(
+                            color: UiColor.awayTeam,
+                            fontSize: width * 0.2,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'display',
+                          ),
                         ),
                       ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: spacing),
+                Row(
+                  children: [
+                    SecondaryButton(
+                      callback: () => _changePeriod(_period),
+                      color: UiColor.period,
+                      icon: Icons.timer,
+                      size: iconSize,
                     ),
-                  ),
-                  const SizedBox(width: spacing),
-                  Container(
-                    width: halfWidth,
-                    color: UiColor.display,
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: Text(
-                        _awayScore.toString(),
-                        style: TextStyle(
-                          color: UiColor.awayTeam,
-                          fontSize: width * 0.2,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'display',
-                        ),
-                      ),
+                    SecondaryButton(
+                      callback: () => startTimer(),
+                      color: UiColor.duration,
+                      disabled: _isStartDisabled(),
+                      icon: Icons.play_arrow,
+                      size: iconSize,
                     ),
-                  )
-                ],
-              ),
-              const SizedBox(height: spacing),
-              Row(
-                children: [
-                  SecondaryButton(
-                    callback: () => _changePeriod(_period),
-                    color: UiColor.period,
-                    icon: Icons.timer,
-                    size: iconSize,
-                  ),
-                  SecondaryButton(
-                    callback: () => startTimer(),
-                    color: UiColor.duration,
-                    disabled: _isStartDisabled(),
-                    icon: Icons.play_arrow,
-                    size: iconSize,
-                  ),
-                  SecondaryButton(
-                    callback: () => pauseTimer(),
-                    color: UiColor.duration,
-                    disabled: _isPauseDisabled(),
-                    icon: Icons.pause,
-                    size: iconSize,
-                  ),
-                  SecondaryButton(
-                    callback: () => stopTimer(),
-                    color: UiColor.duration,
-                    disabled: _isStopDisabled(),
-                    icon: Icons.stop,
-                    size: iconSize,
-                  ),
-                  SecondaryButton(
-                    callback: () => _showResetDialog(),
-                    color: UiColor.line,
-                    disabled: _isResetDisabled(),
-                    icon: Icons.restart_alt,
-                    size: iconSize,
-                  ),
-                  SecondaryButton(
-                    callback: () => context.push(AppRoute.MATCH_SETTINGS.value),
-                    color: const Color(0xFFFFFFFF),
-                    icon: Icons.settings,
-                    size: iconSize,
-                  ),
-                ],
-              ),
-              const SizedBox(height: spacing),
-              Row(
-                children: [
-                  SecondaryButton(
-                    callback: () => _increaseHomeScore(),
-                    color: UiColor.homeTeam,
-                    doubleWidth: true,
-                    icon: Icons.plus_one,
-                    size: iconSize,
-                  ),
-                  SecondaryButton(
-                    callback: () => _decreaseHomeScore(),
-                    color: UiColor.homeTeam,
-                    icon: Icons.remove,
-                    size: iconSize,
-                  ),
-                  SecondaryButton(
-                    callback: () => _decreaseAwayScore(),
-                    color: UiColor.awayTeam,
-                    icon: Icons.remove,
-                    size: iconSize,
-                  ),
-                  SecondaryButton(
-                    callback: () => _increaseAwayScore(),
-                    color: UiColor.awayTeam,
-                    doubleWidth: true,
-                    icon: Icons.plus_one,
-                    size: iconSize,
-                  ),
-                ],
-              ),
-            ],
+                    SecondaryButton(
+                      callback: () => pauseTimer(),
+                      color: UiColor.duration,
+                      disabled: _isPauseDisabled(),
+                      icon: Icons.pause,
+                      size: iconSize,
+                    ),
+                    SecondaryButton(
+                      callback: () => stopTimer(),
+                      color: UiColor.duration,
+                      disabled: _isStopDisabled(),
+                      icon: Icons.stop,
+                      size: iconSize,
+                    ),
+                    SecondaryButton(
+                      callback: () => _showResetDialog(),
+                      color: UiColor.line,
+                      disabled: _isResetDisabled(),
+                      icon: Icons.restart_alt,
+                      size: iconSize,
+                    ),
+                    SecondaryButton(
+                      callback: () =>
+                          context.push(AppRoute.MATCH_SETTINGS.value),
+                      color: const Color(0xFFFFFFFF),
+                      icon: Icons.settings,
+                      size: iconSize,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: spacing),
+                Row(
+                  children: [
+                    SecondaryButton(
+                      callback: () => _increaseHomeScore(),
+                      color: UiColor.homeTeam,
+                      doubleWidth: true,
+                      icon: Icons.plus_one,
+                      size: iconSize,
+                    ),
+                    SecondaryButton(
+                      callback: () => _decreaseHomeScore(),
+                      color: UiColor.homeTeam,
+                      icon: Icons.remove,
+                      size: iconSize,
+                    ),
+                    SecondaryButton(
+                      callback: () => _decreaseAwayScore(),
+                      color: UiColor.awayTeam,
+                      icon: Icons.remove,
+                      size: iconSize,
+                    ),
+                    SecondaryButton(
+                      callback: () => _increaseAwayScore(),
+                      color: UiColor.awayTeam,
+                      doubleWidth: true,
+                      icon: Icons.plus_one,
+                      size: iconSize,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
